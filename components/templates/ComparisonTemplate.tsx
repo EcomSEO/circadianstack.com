@@ -8,6 +8,7 @@ import { AuthorBio } from "../AuthorBio";
 import { RelatedPosts } from "../RelatedPosts";
 import { SourcesList } from "../SourcesList";
 import { EmailCapture } from "../EmailCapture";
+import { ProtocolCard } from "../ProtocolCard";
 import { ArticleJsonLd } from "../schema/ArticleJsonLd";
 import { BreadcrumbJsonLd } from "../schema/BreadcrumbJsonLd";
 import { FaqJsonLd } from "../schema/FaqJsonLd";
@@ -54,6 +55,8 @@ export function ComparisonTemplate({ post }: { post: Post }) {
         <p className="mt-4 text-lg text-charcoal/90 leading-relaxed">
           {post.description}
         </p>
+
+        <ProtocolCard post={post} />
 
         {post.ourPick && (
           <section className="mt-8 p-6 rounded-lg bg-terracotta/10 border border-terracotta/30">

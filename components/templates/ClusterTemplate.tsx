@@ -7,6 +7,7 @@ import { AuthorBio } from "../AuthorBio";
 import { RelatedPosts } from "../RelatedPosts";
 import { SourcesList } from "../SourcesList";
 import { EmailCapture } from "../EmailCapture";
+import { ProtocolCard } from "../ProtocolCard";
 import { ArticleJsonLd } from "../schema/ArticleJsonLd";
 import { BreadcrumbJsonLd } from "../schema/BreadcrumbJsonLd";
 import { FaqJsonLd } from "../schema/FaqJsonLd";
@@ -46,6 +47,8 @@ export function ClusterTemplate({ post }: { post: Post }) {
         <p className="mt-8 text-lg text-charcoal/90 leading-relaxed">
           {post.description}
         </p>
+
+        <ProtocolCard post={post} />
 
         {post.faq && post.faq.length > 0 && (
           <section className="mt-12">
