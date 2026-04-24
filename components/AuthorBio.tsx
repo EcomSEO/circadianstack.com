@@ -1,15 +1,18 @@
+import { Eyebrow } from "./editorial/Eyebrow";
+
 export function AuthorBio() {
   return (
-    <section className="mt-12 p-6 border border-forest/10 rounded-lg bg-white/50">
-      <h3 className="font-serif text-lg text-forest mb-2">
-        About The CircadianStack Team
+    <section className="mt-12 p-6 md:p-7 border border-rule rounded-sm bg-midnight-raised/60">
+      <Eyebrow tone="slate">The Author</Eyebrow>
+      <h3 className="font-serif text-lg text-paper mt-2 mb-2">
+        The CircadianStack Team
       </h3>
-      <p className="text-charcoal/80 leading-relaxed text-[15px]">
-        The CircadianStack Team is a small group of researchers and writers
-        focused on cutting through the noise around non-toxic living. We read
-        the studies, test the products, and update our recommendations as the
-        science evolves. We don&apos;t accept payment for product placement and we
-        disclose every affiliate relationship.
+      <p className="text-paper/85 leading-relaxed text-[15px]">
+        CircadianStack is a small publication of researchers and writers
+        focused on the chronobiology literature. We cite primary sources,
+        publish protocols as structured cards, and update recommendations
+        when new trial data arrives. We don't sell sleep. We publish the
+        science of when.
       </p>
     </section>
   );

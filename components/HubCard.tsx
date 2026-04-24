@@ -5,11 +5,16 @@ export function HubCard({ hub }: { hub: Hub }) {
   return (
     <Link
       href={`/guides/${hub.slug}`}
-      className="block p-6 bg-white/60 border border-forest/10 rounded-lg hover:border-sage transition h-full"
+      className="group block p-6 bg-midnight-raised/60 border border-rule rounded-sm hover:border-dawn/40 transition h-full"
     >
-      <h3 className="font-serif text-xl text-forest mb-2">{hub.name}</h3>
-      <p className="text-sm text-charcoal/70 leading-relaxed">{hub.oneLiner}</p>
-      <span className="mt-4 inline-block text-sage text-sm">Browse →</span>
+      <h3 className="font-serif text-xl text-paper mb-2 group-hover:text-dawn transition">
+        {hub.name}
+      </h3>
+      <p className="text-sm text-paper/75 leading-relaxed">{hub.oneLiner}</p>
+      <span className="mt-4 inline-flex items-center gap-1.5 text-dawn caps-label">
+        Browse
+        <span aria-hidden>→</span>
+      </span>
     </Link>
   );
 }
