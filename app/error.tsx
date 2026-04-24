@@ -36,14 +36,14 @@ export default function Error({
 
         <div className="mt-8 max-w-2xl space-y-5 text-paper/85 text-[16.5px] leading-[1.7]">
           <p>
-            A rendering step failed before this page reached you. Retry — the
-            problem is often transient (a cold edge node, a network blip, a
-            data-fetch timing out). If it keeps firing, the report has already
-            been logged and we&apos;ll look at it.
+            A rendering step failed before this page reached you. Retry first:
+            these are usually transient (a cold edge node, a network blip, a
+            data fetch that timed out). If it keeps firing, the report is
+            already in our log and we will look at it.
           </p>
           <p>
-            Nothing you did caused this. Nothing here is missing from the
-            logbook — the page exists, the render tripped.
+            You did nothing wrong. The page exists in the logbook; the render
+            tripped on the way to you.
           </p>
         </div>
 

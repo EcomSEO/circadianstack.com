@@ -29,15 +29,15 @@ export default function NotFound() {
 
         <div className="mt-8 max-w-2xl space-y-5 text-paper/85 text-[16.5px] leading-[1.7]">
           <p>
-            Either the path was mistyped, the slug changed when a Protocol card
-            was re-shelved into a different hub, or the page never existed.
-            Nothing here to cite, nothing to dose — just a dead reference.
+            The path was mistyped, the slug moved when a Protocol card was
+            re-shelved into a different hub, or the page never existed. Dead
+            reference either way.
           </p>
           <p>
-            The five hubs below contain every protocol on CircadianStack, each
-            tagged with its primary sources (Khalsa, Zeitzer, Roenneberg,
-            Duffy, Wright, Czeisler) and its dose-accurate reviews. Pick the
-            hub that matches what you were looking for.
+            The five hubs below hold every protocol on the site, tagged to the
+            primary sources they rest on (Khalsa, Zeitzer, Roenneberg, Duffy,
+            Wright, Czeisler) and the lamps and alarms we measured. Pick the
+            hub closest to what you were after.
           </p>
         </div>
 

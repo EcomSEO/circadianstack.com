@@ -54,10 +54,11 @@ export default function HomePage() {
                 <span className="text-dawn italic font-serif">the research.</span>
               </h1>
               <p className="mt-7 text-lg md:text-xl text-paper/85 max-w-2xl leading-[1.55] fade-up-delay-2">
-                CircadianStack publishes Protocol cards, cited research, and
-                dose-accurate reviews for morning light, sleep architecture,
-                chronotype, and every other lever that resets a circadian
-                clock. <span className="text-dawn">Protocols, not vibes.</span>
+                CircadianStack publishes Protocol cards for morning light,
+                sleep architecture, chronotype, and shift work. Every dose in
+                lux-minutes or milligrams. Every claim back to Khalsa, Zeitzer,
+                Roenneberg, or the underlying trial.{" "}
+                <span className="text-dawn">Protocols, not vibes.</span>
               </p>
               <div className="mt-9 flex flex-wrap gap-3 fade-up-delay-3">
                 <Link href="/chronotype-quiz" className="btn-primary">
@@ -164,9 +165,10 @@ export default function HomePage() {
                   The card that answers the question most readers arrive with.
                 </h2>
                 <p className="mt-5 text-paper/75 text-[15px] leading-relaxed">
-                  Every how-to post on CircadianStack ships with a five-section
-                  Protocol card — Input, Dose, Expected output, Evidence,
-                  Failure modes. Screenshot-friendly. Dose-specific. Cited.
+                  Every how-to post ships with a five-section Protocol card:
+                  Input, Dose, Expected output, Evidence, Failure modes. One
+                  screenshot carries the dose and the citation. That is the
+                  format.
                 </p>
                 <Link
                   href={`/${featured.slug}`}
@@ -252,7 +254,7 @@ export default function HomePage() {
             <div>
               <Eyebrow tone="dawn">The Latest</Eyebrow>
               <h2 className="font-serif text-3xl md:text-4xl text-paper mt-3 leading-tight">
-                Freshly cited, freshly dose-tested.
+                New posts this issue.
               </h2>
             </div>
             <div className="caps-label text-slate">
@@ -371,9 +373,9 @@ export default function HomePage() {
           </div>
           <Eyebrow tone="dawn">How We Report</Eyebrow>
           <h2 className="font-serif text-3xl md:text-4xl mt-4 leading-[1.15] text-paper">
-            <span className="text-dawn">We publish</span> Protocol cards, not
-            lifestyle content. Every claim has a dose. Every dose has a
-            citation.
+            <span className="text-dawn">We publish</span> Protocol cards.
+            Every claim carries a dose. Every dose carries a citation to the
+            trial it came from.
           </h2>
           <div className="grid md:grid-cols-3 gap-10 mt-12">
             <div>
@@ -404,9 +406,10 @@ export default function HomePage() {
                 Failure modes documented.
               </h3>
               <p className="text-paper/75 text-[14.5px] leading-relaxed">
-                Every protocol ships with a Failure modes section — who it's
-                wrong for, when evidence is mixed, what breaks the dose-response
-                relationship. Protocols aren't magic.
+                Every protocol ships with a Failure modes section: who it is
+                wrong for, where the evidence is mixed, what breaks the
+                dose-response relationship. We do not have a human trial at
+                every dose we cite, and we say so when we don&apos;t.
               </p>
             </div>
           </div>
@@ -468,9 +471,9 @@ export default function HomePage() {
               One Protocol card. One Tuesday morning. Every week.
             </h2>
             <p className="mt-5 text-paper/75 text-[15.5px] max-w-xl mx-auto leading-relaxed">
-              One protocol we verified or changed our mind about — delivered
-              with the five-section card, the citations, and the failure modes.
-              Plus the Chronotype Quiz personalized output when you subscribe.
+              One protocol we verified or changed our mind about, delivered
+              with the five-section card and the citations it rests on.
+              Subscribers also get the Chronotype Quiz personalized output.
             </p>
           </div>
           <EmailCapture />
