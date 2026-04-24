@@ -7,7 +7,7 @@ export const SITE = {
     "Protocol cards, cited research, and dose-accurate reviews — for morning light, sleep architecture, chronotype, and every other lever that resets a circadian clock.",
   author: "The CircadianStack Team",
   email: "hello@circadianstack.com",
-  launched: false,
+  launched: true,
 
   // Editorial masthead — lab-notebook framing
   volume: "Vol. 01",
