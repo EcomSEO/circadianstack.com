@@ -41,9 +41,37 @@ export function Header() {
 
   useEffect(() => {
     setHour(new Date().getHours());
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
     const t = setInterval(() => setHour(new Date().getHours()), 60_000);
     return () => clearInterval(t);
   }, []);
+
+  // Close Guides dropdown + mobile menu on Escape; lock body scroll when
+  // the full-screen mobile menu is open.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setGuidesOpen(false);
+        setMobileOpen(false);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    if (mobileOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }
+  }, [mobileOpen]);
 
   const cycle = hour == null ? null : circadianWindowLabel(hour);
   const cycleToneClass =
@@ -110,8 +138,9 @@ export function Header() {
             onMouseLeave={() => setGuidesOpen(false)}
           >
             <button
+              type="button"
               onClick={() => setGuidesOpen((v) => !v)}
-              className="nav-link flex items-center gap-1"
+              className="nav-link flex items-center gap-1 cursor-pointer"
               aria-expanded={guidesOpen}
               aria-haspopup="menu"
             >
@@ -166,8 +195,9 @@ export function Header() {
         </nav>
 
         <button
+          type="button"
           onClick={() => setMobileOpen(true)}
-          className="md:hidden text-paper"
+          className="md:hidden text-paper inline-flex items-center justify-center h-11 w-11 -mr-2 cursor-pointer"
           aria-label="Open menu"
         >
           <svg
@@ -190,9 +220,10 @@ export function Header() {
           <div className="flex items-center justify-between px-6 py-4 border-b border-rule">
             <Wordmark size="sm" />
             <button
+              type="button"
               onClick={() => setMobileOpen(false)}
               aria-label="Close menu"
-              className="text-paper"
+              className="text-paper inline-flex items-center justify-center h-11 w-11 -mr-2 cursor-pointer"
             >
               <svg
                 width="26"
@@ -214,7 +245,7 @@ export function Header() {
                 key={hub.slug}
                 href={`/guides/${hub.slug}`}
                 onClick={() => setMobileOpen(false)}
-                className="py-3 text-lg text-paper font-serif flex items-center gap-3"
+                className="min-h-[44px] py-3 text-lg text-paper font-serif flex items-center gap-3"
               >
                 <span className="tnum text-dawn/60 text-base">
                   {String(i + 1).padStart(2, "0")}
@@ -226,28 +257,28 @@ export function Header() {
             <Link
               href="/about"
               onClick={() => setMobileOpen(false)}
-              className="py-2 text-lg text-paper"
+              className="min-h-[44px] py-2 text-lg text-paper flex items-center"
             >
               About
             </Link>
             <Link
               href="/editorial-standards"
               onClick={() => setMobileOpen(false)}
-              className="py-2 text-lg text-paper"
+              className="min-h-[44px] py-2 text-lg text-paper flex items-center"
             >
               Editorial standards
             </Link>
             <Link
               href="/newsletter"
               onClick={() => setMobileOpen(false)}
-              className="py-2 text-lg text-paper"
+              className="min-h-[44px] py-2 text-lg text-paper flex items-center"
             >
               Dispatch
             </Link>
             <Link
               href="/contact"
               onClick={() => setMobileOpen(false)}
-              className="py-2 text-lg text-paper"
+              className="min-h-[44px] py-2 text-lg text-paper flex items-center"
             >
               Contact
             </Link>

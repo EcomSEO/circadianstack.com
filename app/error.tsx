@@ -61,7 +61,7 @@ export default function Error({
           <button
             type="button"
             onClick={() => reset()}
-            className="btn-primary"
+            className="btn-primary cursor-pointer"
           >
             Retry protocol
             <span aria-hidden>→</span>

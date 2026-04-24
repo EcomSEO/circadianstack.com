@@ -42,14 +42,16 @@ export function CookieBanner() {
       </p>
       <div className="mt-3 flex gap-2 justify-end">
         <button
+          type="button"
           onClick={() => accept("reject")}
-          className="text-sm px-3 py-2 text-paper/70 hover:text-paper"
+          className="text-sm px-4 min-h-[44px] text-paper/85 hover:text-paper cursor-pointer transition"
         >
           Reject
         </button>
         <button
+          type="button"
           onClick={() => accept("accept")}
-          className="text-sm px-3 py-2 rounded-sm bg-dawn text-midnight font-medium hover:bg-dawn-deep"
+          className="text-sm px-4 min-h-[44px] rounded-sm bg-dawn text-midnight font-medium hover:bg-dawn-deep cursor-pointer transition"
         >
           Accept
         </button>

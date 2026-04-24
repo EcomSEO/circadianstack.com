@@ -25,8 +25,8 @@ export function EmailCapture({
 
   const wrapper =
     variant === "end-of-article"
-      ? "my-12 p-8 rounded-lg bg-dawn/10 border border-dawn/20 text-center"
-      : "my-12 p-8 rounded-lg bg-paper/5 border border-paper/10 text-center";
+      ? "my-12 p-8 rounded-lg bg-dawn/10 border border-dawn/25 text-center"
+      : "my-12 p-8 rounded-sm bg-midnight-raised/60 border border-rule text-center";
 
   return (
     <section id="email-capture" className={wrapper}>
@@ -44,23 +44,27 @@ export function EmailCapture({
             id="email"
             type="email"
             required
+            autoComplete="email"
             placeholder="you@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="flex-1 rounded-md border border-paper/20 px-4 py-3 bg-midnight text-paper"
+            className="flex-1 min-h-[44px] rounded-sm border border-paper/30 px-4 py-3 bg-midnight text-paper placeholder:text-paper/50 transition focus:border-dawn"
           />
           <button
             type="submit"
             disabled={status === "loading"}
-            className="rounded-md bg-dawn px-6 py-3 text-midnight font-semibold hover:bg-ember transition disabled:opacity-50"
+            className="min-h-[44px] rounded-sm bg-dawn px-6 py-3 text-midnight font-semibold hover:bg-dawn-deep transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
             {status === "loading" ? "Sending…" : buttonLabel}
           </button>
         </form>
       )}
-      <p className="mt-4 text-xs text-paper/50 max-w-md mx-auto">
-        By subscribing, you agree to our <a href="/privacy" className="underline">Privacy Policy</a>.
-        One useful email a week. Unsubscribe anytime.
+      <p className="mt-4 text-xs text-paper/70 max-w-md mx-auto">
+        By subscribing, you agree to our{" "}
+        <a href="/privacy" className="underline text-dawn hover:text-zenith transition">
+          Privacy Policy
+        </a>
+        . One useful email a week. Unsubscribe anytime.
       </p>
     </section>
   );

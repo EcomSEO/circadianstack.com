@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -24,6 +24,13 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   robots: robotsMeta(),
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0B1929",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({

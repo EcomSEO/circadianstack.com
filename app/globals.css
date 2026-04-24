@@ -63,6 +63,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 17px;
   line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* Ensure interactive surfaces have the expected cursor */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+button:disabled,
+[role="button"][aria-disabled="true"] {
+  cursor: not-allowed;
 }
 
 h1, h2, h3, h4, h5 {
@@ -73,6 +84,25 @@ h1, h2, h3, h4, h5 {
 }
 
 ::selection { background: var(--color-dawn); color: var(--color-midnight); }
+
+/* ------------------------------------------------------------
+   Keyboard focus — amber ring against midnight, visible on every
+   interactive element. Hidden for mouse/touch (focus-visible).
+   ------------------------------------------------------------ */
+:where(a, button, [role="button"], input, select, textarea, summary, [tabindex]):focus {
+  outline: none;
+}
+:where(a, button, [role="button"], input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-dawn);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+/* Primary buttons sit on amber already — use midnight ring for contrast */
+.btn-primary:focus-visible {
+  outline-color: var(--color-midnight);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px var(--color-dawn);
+}
 
 /* ------------------------------------------------------------
    Editorial utilities (lab-notebook register)
@@ -297,12 +327,14 @@ h1, h2, h3, h4, h5 {
   align-items: center;
   gap: 0.5rem;
   padding: 0.85rem 1.4rem;
+  min-height: 44px;
   background: var(--color-dawn);
   color: var(--color-midnight);
   font-weight: 600;
   font-size: 0.9375rem;
   letter-spacing: 0.005em;
   border-radius: 2px;
+  cursor: pointer;
   transition: background 0.15s ease, transform 0.15s ease;
 }
 .btn-primary:hover { background: var(--color-dawn-deep); }
@@ -312,12 +344,14 @@ h1, h2, h3, h4, h5 {
   align-items: center;
   gap: 0.5rem;
   padding: 0.85rem 1.4rem;
+  min-height: 44px;
   color: var(--color-paper);
   background: transparent;
-  border: 1px solid rgba(232, 228, 217, 0.35);
+  border: 1px solid rgba(232, 228, 217, 0.4);
   font-weight: 500;
   font-size: 0.9375rem;
   border-radius: 2px;
+  cursor: pointer;
   transition: border-color 0.15s ease, color 0.15s ease;
 }
 .btn-secondary:hover {
@@ -616,5 +650,6 @@ html { scrollbar-color: rgba(230, 169, 64, 0.45) var(--color-midnight-deep); scr
   .reveal          { transition: none; opacity: 1; transform: none; }
   .protocol-card   { transition: none; }
   .protocol-card:hover [data-evidence-chip] { animation: none; }
+  .animate-pulse   { animation: none !important; }
   html             { scroll-behavior: auto; }
 }
