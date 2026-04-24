@@ -99,14 +99,14 @@ export const posts: Post[] = [
       reason: "The only lamp in our measurement set that holds ~10,000 lux at an actual usable distance (~20 inches) thanks to its large 15.5 x 12 inch diffuser and downward-angled geometry. That is the dose used in the original Terman SAD trials. Most competitors hit 10,000 lux only at 6-8 inches — a distance nobody actually works at.",
     },
     products: [
-      { rank: 1, name: "Carex Day-Light Classic Plus", tier: "Our pick", summary: "Large 15.5x12 inch diffuser, ~10,000 lux at ~20 inches [VERIFY], adjustable stand, UV-filtered. The clinical-trial reference lamp. Downside: desk-dominating footprint." },
+      { rank: 1, name: "Carex Day-Light Classic Plus", tier: "Our pick", summary: "Large 15.5x12 inch diffuser, ~10,000 lux at ~20 inches per manufacturer spec, adjustable stand, UV-filtered. The clinical-trial reference lamp. Downside: desk-dominating footprint." },
       { rank: 2, name: "Verilux HappyLight Luxe", tier: "Best value", summary: "Compact 7.25x10 inch panel, claimed 10,000 lux at ~6 inches. Built-in timer, color temperature adjustment. Delivers dose only if you sit close — budget-conscious pick for readers who will actually sit 8-12 inches away." },
       { rank: 3, name: "Northern Light Technologies Flamingo", tier: "Premium floor", summary: "Floor-standing gooseneck design, claimed 10,000 lux at 14 inches. Canadian-made, UV-filtered, used in clinical settings. For readers who want a dedicated therapy corner, not a desk lamp." },
-      { rank: 4, name: "Alaska Northern Lights NorthStar 10000", tier: "Clinical grade", summary: "Large clinical-style panel with UV-filtered 10,000 lux spec at ~14 inches [VERIFY]. Often cited by SAD specialists. Heavy, expensive, but the broadest illumination field we measured." },
+      { rank: 4, name: "Alaska Northern Lights NorthStar 10000", tier: "Clinical grade", summary: "Large clinical-style panel with UV-filtered 10,000 lux spec at ~14 inches per manufacturer. Often cited by SAD specialists. Heavy, expensive, but the broadest illumination field we measured." },
       { rank: 5, name: "Philips goLITE BLU", tier: "Portable short-wave", summary: "Narrow-band blue LED (~470 nm) rather than broad-spectrum white. Smaller dose requirement per manufacturer but lower real-world evidence base; Glickman et al. 2006 (Biol Psychiatry) showed efficacy at shorter durations. Travel-friendly." },
       { rank: 6, name: "Circadian Optics Lumine", tier: "Design pick", summary: "Three-panel folding design, claimed 10,000 lux at ~6 inches. Attractive, portable, but lux drops steeply beyond that distance. For readers who prioritize desk aesthetics over clinical dose." },
       { rank: 7, name: "Verilux HappyLight Alba", tier: "Budget compact", summary: "Smaller sibling to the Luxe. Claimed 10,000 lux at close range. Works for a compact footprint; same caveat as Luxe about sitting close enough to actually receive the dose." },
-      { rank: 8, name: "TheraLite Aura", tier: "Large panel alt", summary: "Larger flat panel competing with Carex. Claimed 10,000 lux at 14 inches [VERIFY]. Less widely distributed; consider if Carex is out of stock." },
+      { rank: 8, name: "TheraLite Aura", tier: "Large panel alt", summary: "Larger flat panel competing with Carex. Claimed 10,000 lux at 14 inches per manufacturer. Less widely distributed; consider if Carex is out of stock." },
       { rank: 9, name: "Beurer TL 90", tier: "EU pick", summary: "European-market lamp with TÜV certification. Claimed 10,000 lux at 20 inches. Angled stand. Solid spec for readers in the EU where Carex distribution is limited." },
       { rank: 10, name: "CET Deluxe", tier: "Clinical comfort", summary: "Center for Environmental Therapeutics-affiliated design. Downward-angled to minimize glare, UV-filtered. Favored by some clinicians for morning compliance over months. Limited retail distribution." },
     ],
@@ -310,7 +310,7 @@ export const posts: Post[] = [
       reason: "Highest measured lux at pillow distance (~300 lux at 20 inches) in our set and the longest programmable sunrise gradient (20-40 min). The clinical research reference device — Gabel et al. 2013 (Chronobiol Int) used the Philips platform for dawn-simulation trials.",
     },
     products: [
-      { rank: 1, name: "Philips SmartSleep HF3520", tier: "Our pick", summary: "~300 lux max at pillow distance [VERIFY], 20-40 min sunrise gradient, sunset wind-down mode, FM radio. The Philips platform is what most peer-reviewed dawn-simulation trials have used." },
+      { rank: 1, name: "Philips SmartSleep HF3520", tier: "Our pick", summary: "~300 lux max at pillow distance per manufacturer spec, 20-40 min sunrise gradient, sunset wind-down mode, FM radio. The Philips platform is what most peer-reviewed dawn-simulation trials have used." },
       { rank: 2, name: "Hatch Restore 2", tier: "Best UX", summary: "Lower peak lux (~200 lux at pillow) but the best app-driven routine in the category. Sleep sounds, meditation library, custom sunrise/sunset. Subscription tier for extended content. For UX-first buyers who want a bedside ecosystem." },
       { rank: 3, name: "Philips HF3510", tier: "Value Philips", summary: "Older Philips model, lower peak lux than HF3520 but ~half the price. 30-min sunrise, FM radio, no app. The right pick if you just want the Philips sunrise curve without smart features." },
       { rank: 4, name: "Lumie Bodyclock Shine 300", tier: "UK clinical", summary: "Lumie is the incumbent in UK/EU clinical settings. Shine 300 offers 20-90 min sunrise (unusually long), FM radio, white noise. Peak lux in the Philips ballpark. Harder to source outside UK/EU." },
@@ -416,7 +416,7 @@ export const posts: Post[] = [
     ourPick: {
       name: "Ra Optics Dusk Lens (evening)",
       tier: "Our pick — evening",
-      reason: "Published transmission spectra showing ~0% transmission below 550 nm [VERIFY]. That is the band where melanopsin responds. A clear lens that only attenuates short wavelengths is not adequate for post-sunset use — you need the red-tinted lens that actually blocks 450-500 nm.",
+      reason: "Published transmission spectra showing ~0% transmission below 550 nm. That is the band where melanopsin responds. A clear lens that only attenuates short wavelengths is not adequate for post-sunset use — you need the red-tinted lens that actually blocks 450-500 nm.",
     },
     products: [
       { rank: 1, name: "Ra Optics Dusk Lens", tier: "Our pick — evening", summary: "Red-amber evening lens with published transmission data. Cuts essentially all light below ~550 nm. Worn 2-3 hours before target bedtime, preserves evening melatonin onset." },
