@@ -423,3 +423,198 @@ h1, h2, h3, h4, h5 {
 .fade-up          { animation: fadeUp 0.6s ease-out both; }
 .fade-up-delay-1  { animation: fadeUp 0.6s ease-out 0.1s both; }
 .fade-up-delay-2  { animation: fadeUp 0.6s ease-out 0.2s both; }
+.fade-up-delay-3  { animation: fadeUp 0.7s ease-out 0.3s both; }
+.fade-up-delay-4  { animation: fadeUp 0.8s ease-out 0.45s both; }
+.fade-up-delay-5  { animation: fadeUp 0.9s ease-out 0.6s both; }
+
+/* ------------------------------------------------------------
+   Observatory — starfield, aurora, telemetry, signal-lost
+   ------------------------------------------------------------ */
+
+/* Starfield: a fixed background layer of amber + paper micro-dots at
+   very low opacity. Sits behind everything; does not interfere with
+   readability thanks to the midnight body background. */
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  /* Stippled dots via radial-gradient tiles. Two overlapping tiles
+     (amber + paper) shifted against each other create irregularity
+     without requiring SVG noise. */
+  background-image:
+    radial-gradient(1px 1px at 17% 23%, rgba(232, 228, 217, 0.28) 50%, transparent 51%),
+    radial-gradient(1px 1px at 63% 11%, rgba(230, 169, 64, 0.35) 50%, transparent 51%),
+    radial-gradient(1px 1px at 82% 47%, rgba(232, 228, 217, 0.22) 50%, transparent 51%),
+    radial-gradient(1px 1px at 29% 71%, rgba(232, 228, 217, 0.2) 50%, transparent 51%),
+    radial-gradient(1.2px 1.2px at 44% 89%, rgba(230, 169, 64, 0.28) 50%, transparent 51%),
+    radial-gradient(1px 1px at 91% 83%, rgba(232, 228, 217, 0.22) 50%, transparent 51%),
+    radial-gradient(1px 1px at 7% 52%, rgba(230, 169, 64, 0.22) 50%, transparent 51%);
+  background-size: 420px 420px, 380px 380px, 460px 460px, 340px 340px, 500px 500px, 360px 360px, 440px 440px;
+  background-position: 0 0, 120px 80px, 60px 220px, 200px 40px, 160px 300px, 280px 160px, 100px 260px;
+  opacity: 0.55;
+}
+
+/* Aurora: dual radial gradients (amber + zenith) that slowly drift
+   across the hero. Very low alpha. Respects reduced-motion. */
+.aurora {
+  position: absolute;
+  inset: -20% -10%;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(40% 50% at 20% 30%, rgba(230, 169, 64, 0.16) 0%, transparent 60%),
+    radial-gradient(45% 45% at 80% 70%, rgba(94, 175, 201, 0.14) 0%, transparent 60%),
+    radial-gradient(35% 40% at 60% 20%, rgba(201, 125, 94, 0.08) 0%, transparent 65%);
+  filter: blur(40px);
+  animation: auroraDrift 72s ease-in-out infinite alternate;
+}
+
+@keyframes auroraDrift {
+  0%   { transform: translate3d(-4%, -2%, 0) rotate(-2deg); opacity: 0.9; }
+  50%  { transform: translate3d(3%, 2%, 0) rotate(1.5deg); opacity: 1; }
+  100% { transform: translate3d(-2%, 3%, 0) rotate(-1deg); opacity: 0.85; }
+}
+
+/* Signal-lost pulse — 404 observatory beacon */
+@keyframes signalLost {
+  0%, 100% { opacity: 0.35; transform: scale(1); box-shadow: 0 0 0 0 rgba(230, 169, 64, 0.0); }
+  50%      { opacity: 1;    transform: scale(1.15); box-shadow: 0 0 16px 2px rgba(230, 169, 64, 0.55); }
+}
+.signal-lost {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--color-dawn);
+  animation: signalLost 1.6s ease-in-out infinite;
+}
+
+/* Phase-response-curve draw-on-scroll — stroke-dashoffset transition */
+.prc-path {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  transition: stroke-dashoffset 2.2s ease-out;
+}
+.prc-path.is-visible { stroke-dashoffset: 0; }
+
+/* Generic scroll-reveal wrapper: start hidden, slide up on .is-visible */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* Reading-progress rail at the top of masthead */
+.reading-progress {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 2px;
+  background: transparent;
+  z-index: 50;
+  pointer-events: none;
+}
+.reading-progress__fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(
+    90deg,
+    rgba(230, 169, 64, 0.15) 0%,
+    var(--color-dawn) 60%,
+    rgba(230, 169, 64, 0.4) 100%
+  );
+  transition: width 90ms linear;
+}
+
+/* Protocol-card amber glow on hover + evidence chip pulse */
+.protocol-card {
+  transition: border-color 0.25s ease, box-shadow 0.35s ease, transform 0.25s ease;
+}
+.protocol-card:hover {
+  border-color: rgba(230, 169, 64, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(230, 169, 64, 0.25),
+    0 0 48px -8px rgba(230, 169, 64, 0.22),
+    0 12px 32px rgba(0, 0, 0, 0.35);
+}
+@keyframes evidencePulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.12); }
+}
+.protocol-card:hover [data-evidence-chip] {
+  animation: evidencePulse 1.1s ease-in-out 1;
+  color: var(--color-dawn);
+}
+
+/* Nav current-page amber dot prefix */
+.nav-link[aria-current="page"]::before {
+  content: "";
+  display: inline-block;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--color-dawn);
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  box-shadow: 0 0 6px rgba(230, 169, 64, 0.6);
+}
+
+/* Zenith hairline underline (refined nav-link) */
+.nav-link::after {
+  background: var(--color-zenith);
+}
+.nav-link[aria-current="page"]::after {
+  background: var(--color-dawn);
+}
+
+/* Custom scrollbar (WebKit) — thin amber-on-midnight */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track {
+  background: var(--color-midnight-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(230, 169, 64, 0.45) 0%,
+    rgba(230, 169, 64, 0.25) 100%
+  );
+  border: 2px solid var(--color-midnight-deep);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-dawn);
+}
+/* Firefox */
+html { scrollbar-color: rgba(230, 169, 64, 0.45) var(--color-midnight-deep); scrollbar-width: thin; }
+
+/* Protocol-log timestamp — mono, tracked, amber accent */
+.protocol-log {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-slate);
+}
+.protocol-log__tick {
+  color: var(--color-dawn);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------
+   Reduced-motion: cut every observatory animation
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .fade-up-delay-1,
+  .fade-up-delay-2,
+  .fade-up-delay-3,
+  .fade-up-delay-4,
+  .fade-up-delay-5 { animation: none; }
+  .aurora          { animation: none; }
+  .signal-lost     { animation: none; opacity: 0.8; }
+  .prc-path        { transition: none; stroke-dashoffset: 0; }
+  .reveal          { transition: none; opacity: 1; transform: none; }
+  .protocol-card   { transition: none; }
+  .protocol-card:hover [data-evidence-chip] { animation: none; }
+  html             { scroll-behavior: auto; }
+}

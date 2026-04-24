@@ -2,6 +2,7 @@ import Link from "next/link";
 import { hubs } from "@/lib/content/hubs";
 import { Wordmark } from "./editorial/Wordmark";
 import { SITE } from "@/lib/content/site";
+import { FooterTelemetry } from "./editorial/FooterTelemetry";
 
 /**
  * Dark editorial masthead footer — hub index with amber rank numerals,
@@ -155,14 +156,14 @@ export function Footer() {
       {/* Imprint strip */}
       <div className="border-t border-rule">
         <div className="mx-auto max-w-6xl px-6 py-6 flex flex-col md:flex-row justify-between gap-3 text-[11px] tracking-[0.14em] uppercase text-slate font-mono">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
             <span>©&nbsp;{new Date().getFullYear()} CircadianStack</span>
             <span aria-hidden className="text-rule">·</span>
             <span>
               {SITE.volume} · {SITE.issue}
             </span>
             <span aria-hidden className="text-rule">·</span>
-            <span className="text-dawn/80">{SITE.protocolLogPrefix}</span>
+            <FooterTelemetry />
           </div>
           <div className="normal-case tracking-normal text-slate/80 text-xs max-w-xl md:text-right leading-relaxed font-sans">
             Commissions on some affiliate links help fund dose testing. They do

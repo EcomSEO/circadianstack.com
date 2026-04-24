@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import { hubs } from "@/lib/content/hubs";
 import { Wordmark } from "./editorial/Wordmark";
 import { Dateline } from "./editorial/Dateline";
+import { ProtocolLog } from "./editorial/ProtocolLog";
+import { ChronotypeDot } from "./editorial/ChronotypeDot";
+import { ReadingProgress } from "./editorial/ReadingProgress";
 
 /**
  * CircadianStack masthead — dark, lab-notebook, monospace-adjacent.
@@ -53,11 +56,19 @@ export function Header() {
       : "bg-dawn";
 
   return (
-    <header className="bg-midnight/95 backdrop-blur sticky top-0 z-40 border-b border-rule">
-      {/* Masthead strip — Protocol Log dateline */}
+    <header className="relative bg-midnight/95 backdrop-blur sticky top-0 z-40 border-b border-rule">
+      <ReadingProgress />
+      {/* Masthead strip — Protocol Log dateline + live observatory clock */}
       <div className="border-b border-rule hidden md:block">
-        <div className="mx-auto max-w-6xl px-6 py-2 flex items-center justify-between">
-          <Dateline />
+        <div className="mx-auto max-w-6xl px-6 py-2 flex items-center justify-between gap-6">
+          <div className="flex items-center gap-4 min-w-0">
+            <Dateline />
+            <span aria-hidden className="text-rule hidden xl:inline">·</span>
+            <span className="hidden xl:inline-flex items-center gap-2">
+              <ChronotypeDot />
+              <ProtocolLog />
+            </span>
+          </div>
           <div className="flex items-center gap-5 text-[11px] tracking-[0.14em] uppercase text-slate font-mono">
             <Link href="/editorial-standards" className="nav-link">
               Editorial

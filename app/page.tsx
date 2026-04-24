@@ -7,6 +7,9 @@ import { RankNumeral } from "@/components/editorial/RankNumeral";
 import { ProtocolCard } from "@/components/editorial/ProtocolCard";
 import { LuxBadge } from "@/components/editorial/LuxBadge";
 import { EmailCapture } from "@/components/EmailCapture";
+import { Aurora } from "@/components/editorial/Aurora";
+import { Reveal } from "@/components/editorial/Reveal";
+import { PhaseResponseCurve } from "@/components/editorial/PhaseResponseCurve";
 
 const typeLabel: Record<string, string> = {
   pillar: "Protocol",
@@ -35,25 +38,28 @@ export default function HomePage() {
               "radial-gradient(circle at 85% 20%, rgba(230,169,64,0.18) 0, transparent 45%), radial-gradient(circle at 15% 85%, rgba(94,175,201,0.12) 0, transparent 50%)",
           }}
         />
+        <Aurora />
         <div className="relative mx-auto max-w-6xl px-6 pt-14 md:pt-20 pb-14 md:pb-20">
           <div className="grid md:grid-cols-12 gap-10 items-start">
-            <div className="md:col-span-8 fade-up">
-              <Eyebrow tone="dawn">
-                Issue No. 01 &nbsp;·&nbsp; The Launch Edition
-              </Eyebrow>
-              <h1 className="display-headline mt-5 text-[2.6rem] sm:text-5xl md:text-[4.2rem] leading-[1.02]">
+            <div className="md:col-span-8">
+              <div className="fade-up">
+                <Eyebrow tone="dawn">
+                  Issue No. 01 &nbsp;·&nbsp; The Launch Edition
+                </Eyebrow>
+              </div>
+              <h1 className="display-headline mt-5 text-[2.6rem] sm:text-5xl md:text-[4.2rem] leading-[1.02] fade-up-delay-1">
                 The lux, the timing,
                 <br className="hidden md:inline" />
                 {" "}
                 <span className="text-dawn italic font-serif">the research.</span>
               </h1>
-              <p className="mt-7 text-lg md:text-xl text-paper/85 max-w-2xl leading-[1.55]">
+              <p className="mt-7 text-lg md:text-xl text-paper/85 max-w-2xl leading-[1.55] fade-up-delay-2">
                 CircadianStack publishes Protocol cards, cited research, and
                 dose-accurate reviews for morning light, sleep architecture,
                 chronotype, and every other lever that resets a circadian
                 clock. <span className="text-dawn">Protocols, not vibes.</span>
               </p>
-              <div className="mt-9 flex flex-wrap gap-3">
+              <div className="mt-9 flex flex-wrap gap-3 fade-up-delay-3">
                 <Link href="/chronotype-quiz" className="btn-primary">
                   Take the Chronotype Quiz
                   <span aria-hidden>→</span>
@@ -64,7 +70,7 @@ export default function HomePage() {
               </div>
 
               {/* Quick-spec strip — monospace, lab-data register */}
-              <dl className="mt-10 grid grid-cols-3 gap-0 max-w-lg border-t border-rule">
+              <dl className="mt-10 grid grid-cols-3 gap-0 max-w-lg border-t border-rule fade-up-delay-4">
                 <div className="border-r border-rule pr-4 pt-4">
                   <dt className="caps-label text-slate">Cited</dt>
                   <dd className="tnum text-dawn text-2xl mt-1">
@@ -171,7 +177,7 @@ export default function HomePage() {
                 </Link>
               </div>
 
-              <div className="md:col-span-8">
+              <Reveal className="md:col-span-8">
                 <ProtocolCard post={featured} variant="featured" />
                 <div className="mt-4 flex flex-wrap items-center gap-3 caps-label text-slate">
                   <span className="text-dawn">Featured</span>
@@ -180,7 +186,7 @@ export default function HomePage() {
                   <span aria-hidden>·</span>
                   <span>{(featured.sources ?? []).length} primary sources</span>
                 </div>
-              </div>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -208,25 +214,30 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-0 border-t border-rule">
             {hubs.map((hub, i) => (
-              <Link
+              <Reveal
                 key={hub.slug}
-                href={`/guides/${hub.slug}`}
-                className="group relative flex flex-col p-6 border-b lg:border-b-0 lg:border-r border-rule last:border-r-0 hover:bg-midnight-raised/60 transition"
+                delay={i * 90}
+                className="border-b lg:border-b-0 lg:border-r border-rule last:border-r-0"
               >
-                <span className="rank-numeral text-dawn/70 group-hover:text-dawn mb-3 !text-[2.5rem] transition">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="font-serif text-xl text-paper leading-tight mb-2">
-                  {hub.name}
-                </h3>
-                <p className="text-sm text-paper/70 leading-relaxed flex-1">
-                  {hub.oneLiner}
-                </p>
-                <span className="mt-5 inline-flex items-center gap-1 text-dawn group-hover:text-zenith caps-label">
-                  Open hub
-                  <span aria-hidden>→</span>
-                </span>
-              </Link>
+                <Link
+                  href={`/guides/${hub.slug}`}
+                  className="group relative flex flex-col p-6 h-full hover:bg-midnight-raised/60 transition"
+                >
+                  <span className="rank-numeral text-dawn/70 group-hover:text-dawn mb-3 !text-[2.5rem] transition">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="font-serif text-xl text-paper leading-tight mb-2">
+                    {hub.name}
+                  </h3>
+                  <p className="text-sm text-paper/70 leading-relaxed flex-1">
+                    {hub.oneLiner}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-1 text-dawn group-hover:text-zenith caps-label">
+                    Open hub
+                    <span aria-hidden>→</span>
+                  </span>
+                </Link>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -244,7 +255,15 @@ export default function HomePage() {
                 Freshly cited, freshly dose-tested.
               </h2>
             </div>
+            <div className="caps-label text-slate">
+              Fig. 02 · PRC to light (Khalsa 2003)
+            </div>
           </div>
+
+          {/* Phase-response-curve — draws in on scroll */}
+          <Reveal className="mb-12 border-y border-rule py-6">
+            <PhaseResponseCurve height={140} />
+          </Reveal>
 
           <div className="grid md:grid-cols-12 gap-10">
             {recent[0] && (

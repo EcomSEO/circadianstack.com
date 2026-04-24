@@ -41,6 +41,17 @@ export default function NotFound() {
           </p>
         </div>
 
+        {/* Observatory 404 signal — pulsing amber dot + last-log-entry stamp */}
+        <div className="mt-8 inline-flex items-center gap-3 border border-rule bg-midnight-raised/50 px-3.5 py-2 rounded-sm">
+          <span aria-hidden className="signal-lost" />
+          <span className="caps-label text-slate">Signal lost</span>
+          <span aria-hidden className="text-rule">·</span>
+          <span className="font-mono text-[12.5px] text-dawn/90 tnum">
+            Last log entry ·{" "}
+            {new Date().toISOString().slice(0, 16).replace("T", " ")}
+          </span>
+        </div>
+
         <div className="mt-12 pt-8 border-t border-rule">
           <div className="eyebrow text-slate mb-5">The five hubs</div>
           <ul className="grid md:grid-cols-2 gap-x-10 gap-y-1">

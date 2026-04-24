@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
+import { Starfield } from "@/components/editorial/Starfield";
 import { OrganizationJsonLd } from "@/components/schema/OrganizationJsonLd";
 import { SITE } from "@/lib/content/site";
 import { robotsMeta } from "@/lib/seo";
@@ -42,6 +43,7 @@ export default function RootLayout({
       </head>
       <body>
         <OrganizationJsonLd />
+        <Starfield />
         <Header />
         {children}
         <Footer />

@@ -89,7 +89,10 @@ export function ProtocolCard({
               {String(r.n).padStart(2, "0")}
             </span>
             <div className="col-span-1 md:col-auto">
-              <span className="caps-label text-dawn">
+              <span
+                className="caps-label text-dawn inline-block origin-left"
+                data-evidence-chip={r.label === "Evidence" ? "true" : undefined}
+              >
                 <span className="tnum text-dawn text-[10px] mr-2 md:hidden">
                   {String(r.n).padStart(2, "0")}
                 </span>
