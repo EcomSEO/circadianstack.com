@@ -3,21 +3,22 @@
  * protocol. NOT a product-quality rating.
  *
  * Composition (5 weighted dimensions, sum to 100%):
- *   - Trial strength          35%   Multi-arm RCT + meta-analysis = high; single trial limited = mid; preclinical = low
- *   - Mechanism plausibility  20%   Receptor / photopigment pathway proven = high; hypothetical = low
- *   - Reproducibility         15%   Independent replication exists vs single-trial
- *   - Practicality            15%   Fits a real reader's day vs lab-only
- *   - Safety                  15%   Risk profile well-characterized vs poorly described
+ *   - Trial strength          35%
+ *   - Mechanism plausibility  20%
+ *   - Reproducibility         15%
+ *   - Practicality            15%
+ *   - Safety                  15%
  *
- * Tier mapping (circadianstack palette):
- *    90-100  HIGH CONFIDENCE  midnight bg / dawn text
- *    80-89   STRONG           dawn bg / midnight text
- *    70-79   MODERATE         zenith bg / midnight text
- *    60-69   LIMITED          ember bg / midnight text
- *     0-59   PRELIMINARY      slate bg / paper text
+ * Tier mapping:
+ *    90-100  HIGH CONFIDENCE
+ *    80-89   STRONG
+ *    70-79   MODERATE
+ *    60-69   LIMITED
+ *     0-59   PRELIMINARY
  *
- * Render: a squared rectangle (border-radius 2px). IBM Plex Mono numerics,
- * lab-notebook register.
+ * Render — redesigned from a single big number to a horizontal data
+ * strip: header line carries the score + tier; below it, five labelled
+ * mini-bars per dimension. Reads like a sparkline, not a sticker badge.
  */
 
 export type StackDimensions = {
@@ -61,35 +62,15 @@ export function tierFor(score: number): StackTier {
   return "PRELIMINARY";
 }
 
-const tierStyles: Record<
+const TIER_TONE: Record<
   StackTier,
-  { bg: string; text: string; chip: string }
+  { fg: string; bar: string }
 > = {
-  "HIGH CONFIDENCE": {
-    bg: "bg-midnight-deep border border-dawn/40",
-    text: "text-dawn",
-    chip: "text-dawn/80",
-  },
-  STRONG: {
-    bg: "bg-dawn",
-    text: "text-midnight",
-    chip: "text-midnight/75",
-  },
-  MODERATE: {
-    bg: "bg-zenith",
-    text: "text-midnight",
-    chip: "text-midnight/75",
-  },
-  LIMITED: {
-    bg: "bg-ember",
-    text: "text-midnight",
-    chip: "text-midnight/75",
-  },
-  PRELIMINARY: {
-    bg: "bg-slate",
-    text: "text-paper",
-    chip: "text-paper/80",
-  },
+  "HIGH CONFIDENCE": { fg: "text-dawn", bar: "bg-dawn" },
+  STRONG: { fg: "text-dawn", bar: "bg-dawn/80" },
+  MODERATE: { fg: "text-zenith", bar: "bg-zenith" },
+  LIMITED: { fg: "text-ember", bar: "bg-ember" },
+  PRELIMINARY: { fg: "text-slate", bar: "bg-slate" },
 };
 
 type Props = {
@@ -98,6 +79,22 @@ type Props = {
   size?: "sm" | "lg";
   showLabel?: boolean;
   className?: string;
+};
+
+const DIM_LABELS: Array<keyof StackDimensions> = [
+  "trialStrength",
+  "mechanismPlausibility",
+  "reproducibility",
+  "practicality",
+  "safety",
+];
+
+const DIM_SHORT: Record<keyof StackDimensions, string> = {
+  trialStrength: "TRIAL",
+  mechanismPlausibility: "MECH",
+  reproducibility: "REPRO",
+  practicality: "PRAC",
+  safety: "SAFE",
 };
 
 export function StackScore({
@@ -114,69 +111,109 @@ export function StackScore({
       ? computeStackScore(dimensions)
       : 0;
   const tier = tierFor(value);
-  const styles = tierStyles[tier];
+  const tone = TIER_TONE[tier];
 
-  if (size === "lg") {
+  // Compact form — used in lists, tables, related cards. Single mono
+  // line: score · tier · five tiny ticks.
+  if (size === "sm") {
     return (
-      <div
+      <span
         role="img"
         aria-label={`Stack Score ${value} out of 100, ${tier.toLowerCase()}`}
         className={[
-          "inline-flex flex-col items-center justify-center",
-          "w-[88px] h-[64px] rounded-[2px] px-2",
-          styles.bg,
-          styles.text,
+          "inline-flex items-center gap-2 rounded-[2px] px-2 py-1 bg-midnight-deep border border-rule",
           className,
         ].join(" ")}
       >
         <span
-          className="font-mono font-semibold leading-none tnum-serif"
-          style={{ fontSize: "30px", fontVariantNumeric: "tabular-nums" }}
+          className={`font-mono font-semibold tnum ${tone.fg}`}
+          style={{ fontSize: "13px", fontVariantNumeric: "tabular-nums" }}
         >
           {value}
         </span>
         {showLabel && (
           <span
-            className={[
-              "mt-0.5 font-mono font-semibold tracking-[0.14em] uppercase leading-none",
-              styles.chip,
-            ].join(" ")}
-            style={{ fontSize: "8.5px" }}
+            className={`font-mono tracking-[0.16em] uppercase ${tone.fg}`}
+            style={{ fontSize: "9px" }}
           >
             {tier}
           </span>
         )}
-      </div>
+        {dimensions && (
+          <span aria-hidden className="flex items-end gap-[2px] h-3 ml-1">
+            {DIM_LABELS.map((k) => {
+              const v = dimensions[k] ?? 0;
+              return (
+                <span
+                  key={k}
+                  className={`w-[3px] ${tone.bar}`}
+                  style={{ height: `${Math.max(v, 6)}%` }}
+                />
+              );
+            })}
+          </span>
+        )}
+      </span>
     );
   }
 
+  // Large form — used at the top of pillars / protocol pages. Header
+  // line + 5 mini-bars with labels.
   return (
     <div
       role="img"
       aria-label={`Stack Score ${value} out of 100, ${tier.toLowerCase()}`}
       className={[
-        "inline-flex items-center gap-1.5 rounded-[2px] px-2 py-1",
-        styles.bg,
-        styles.text,
+        "rounded-[2px] border border-rule bg-midnight-raised/60 px-4 md:px-5 py-4 w-full max-w-md",
         className,
       ].join(" ")}
     >
-      <span
-        className="font-mono font-semibold leading-none"
-        style={{ fontSize: "13px", fontVariantNumeric: "tabular-nums" }}
-      >
-        {value}
-      </span>
-      {showLabel && (
+      <div className="flex items-baseline gap-3">
+        <span className="font-mono text-[10.5px] tracking-[0.22em] uppercase text-slate">
+          STACK SCORE
+        </span>
+        <span aria-hidden className="text-rule">·</span>
         <span
-          className={[
-            "font-mono font-semibold tracking-[0.12em] uppercase leading-none",
-            styles.chip,
-          ].join(" ")}
-          style={{ fontSize: "9px" }}
+          className={`font-mono font-semibold tnum ${tone.fg}`}
+          style={{ fontSize: "26px", fontVariantNumeric: "tabular-nums", lineHeight: 1 }}
+        >
+          {value}
+        </span>
+        <span className="font-mono text-[10.5px] tracking-[0.22em] uppercase text-slate">
+          / 100
+        </span>
+        <span aria-hidden className="text-rule">·</span>
+        <span
+          className={`font-mono tracking-[0.18em] uppercase ${tone.fg}`}
+          style={{ fontSize: "10px" }}
         >
           {tier}
         </span>
+      </div>
+
+      {dimensions && (
+        <div className="mt-4 grid grid-cols-5 gap-2">
+          {DIM_LABELS.map((k) => {
+            const v = dimensions[k] ?? 0;
+            return (
+              <div key={k} className="flex flex-col gap-1">
+                <div className="h-8 bg-midnight-deep border border-rule rounded-[1px] flex items-end overflow-hidden">
+                  <div
+                    className={`w-full ${tone.bar}`}
+                    style={{ height: `${Math.max(v, 4)}%` }}
+                    aria-hidden
+                  />
+                </div>
+                <div className="font-mono text-[8.5px] tracking-[0.16em] uppercase text-slate text-center">
+                  {DIM_SHORT[k]}
+                </div>
+                <div className="font-mono text-[10px] tnum text-paper/85 text-center">
+                  {v}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       )}
     </div>
   );
