@@ -3,18 +3,21 @@ import { Link } from "@/i18n/navigation";
 /**
  * MethodologyByline — sits between the article subhead and the hero image.
  *
- * Layout: a small monogram circle (amber on midnight), then "By {author}"
- * and a "Reviewed using methodology v1.2 ↗" link. All text is mono caps
- * 11px slate.
+ * Layout: a small monogram circle (amber on midnight), then "By {author}",
+ * a "Reviewed {date}" stamp, optional reading time, and a "Methodology v1.2"
+ * link. All text is mono caps 11px slate. Pliability puts reading time near
+ * the byline; we mirror that.
  */
 export function MethodologyByline({
   author = "The CircadianStack Editorial Team",
   monogram = "CS",
   reviewedOn,
+  readingTime,
 }: {
   author?: string;
   monogram?: string;
   reviewedOn?: string;
+  readingTime?: number;
 }) {
   const formatted = reviewedOn
     ? new Date(reviewedOn).toLocaleDateString("en-US", {
@@ -38,6 +41,12 @@ export function MethodologyByline({
           <>
             <span aria-hidden className="text-rule">·</span>
             <span>Reviewed {formatted}</span>
+          </>
+        )}
+        {typeof readingTime === "number" && readingTime > 0 && (
+          <>
+            <span aria-hidden className="text-rule">·</span>
+            <span className="tnum">{readingTime} min read</span>
           </>
         )}
         <span aria-hidden className="text-rule">·</span>

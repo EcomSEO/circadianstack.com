@@ -3,7 +3,11 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { hubs, localizeHub } from "@/lib/content/hubs";
 import { latestPosts, posts } from "@/lib/content/posts";
 import { localizePost } from "@/lib/content/posts-i18n";
-import { HeroLite } from "@/components/home/HeroLite";
+import { EditorialHero } from "@/components/home/EditorialHero";
+import { TrendingChips, type TrendingChip } from "@/components/home/TrendingChips";
+import { SignatureTeasers, type SignatureTeaser } from "@/components/home/SignatureTeasers";
+import { BrowseByLever, type LeverTile } from "@/components/home/BrowseByLever";
+import { MethodologyTeaser } from "@/components/home/MethodologyTeaser";
 import { CategoryGrid, type CategoryTile } from "@/components/home/CategoryGrid";
 import { GuidesGrid, type GuideTile } from "@/components/home/GuidesGrid";
 import { ScrollRow, type ScrollRowCard } from "@/components/home/ScrollRow";
@@ -30,6 +34,7 @@ export default async function HomePage({
   setRequestLocale(locale);
 
   const tRR = await getTranslations("homeRR");
+  const tHeader = await getTranslations("header");
 
   // Category tiles: 5 hubs + 3 chronobiology-appropriate expansion tiles.
   const hubTiles: CategoryTile[] = hubs.map((hub) => {
@@ -103,9 +108,73 @@ export default async function HomePage({
     };
   });
 
+  // Trending protocol chips — voiced as protocols/levers, not products.
+  const trendingChips: TrendingChip[] = [
+    { label: tRR("trend1"), href: "/morning-sunlight-protocol" },
+    { label: tRR("trend2"), href: "/why-you-wake-at-3am" },
+    { label: tRR("trend3"), href: "/jet-lag-protocol-east-vs-west" },
+    { label: tRR("trend4"), href: "/best-light-therapy-lamps-2026" },
+    { label: tRR("trend5"), href: "/night-shift-sleep-protocol" },
+    { label: tRR("trend6"), href: "/best-blue-blocker-glasses" },
+  ];
+
+  // Three signature teasers — chronobiology framing, never Rx.
+  const teasers: SignatureTeaser[] = [
+    {
+      href: "/why-you-wake-at-3am",
+      eyebrow: tRR("teaser1Eyebrow"),
+      title: tRR("teaser1Title"),
+      blurb: tRR("teaser1Blurb"),
+      ctaLabel: tRR("teaserCta"),
+      variant: "zenith",
+    },
+    {
+      href: "/morning-sunlight-protocol",
+      eyebrow: tRR("teaser2Eyebrow"),
+      title: tRR("teaser2Title"),
+      blurb: tRR("teaser2Blurb"),
+      ctaLabel: tRR("teaserCta"),
+      variant: "dawn",
+    },
+    {
+      href: "/guides",
+      eyebrow: tRR("teaser3Eyebrow"),
+      title: tRR("teaser3Title"),
+      blurb: tRR("teaser3Blurb"),
+      ctaLabel: tRR("teaserCta"),
+      variant: "ember",
+    },
+  ];
+
+  // Browse by lever — drugs.com utility-tile pattern.
+  const leverTiles: LeverTile[] = [
+    { href: "/guides/light-and-zeitgebers", label: tRR("leverLight"), sub: tRR("leverLightSub"), icon: "light" },
+    { href: "/guides/sleep-architecture", label: tRR("leverTemp"), sub: tRR("leverTempSub"), icon: "temp" },
+    { href: "/guides/chronotype", label: tRR("leverMovement"), sub: tRR("leverMovementSub"), icon: "movement" },
+    { href: "/guides/interventions-and-tools", label: tRR("leverNutrition"), sub: tRR("leverNutritionSub"), icon: "nutrition" },
+  ];
+
   return (
     <main>
-      <HeroLite h1={tRR("h1")} metaLine={tRR("pipelineMeta")} />
+      <EditorialHero
+        eyebrow={tRR("heroEyebrow")}
+        h1={tRR("heroH1")}
+        sub={tRR("heroSub")}
+        searchPlaceholder={tHeader("searchPlaceholder")}
+        searchAria={tHeader("searchButton")}
+        searchSubmit={tRR("heroSearchSubmit")}
+        pipelineMeta={tRR("pipelineMeta")}
+      />
+
+      <TrendingChips label={tRR("trendingLabel")} chips={trendingChips} />
+
+      <SignatureTeasers
+        heading={tRR("signatureHeading")}
+        subheading={tRR("signatureSub")}
+        teasers={teasers}
+      />
+
+      <BrowseByLever heading={tRR("leverHeading")} tiles={leverTiles} />
 
       <CategoryGrid heading={tRR("guides")} tiles={categoryTiles} />
 
@@ -114,6 +183,17 @@ export default async function HomePage({
       <ScrollRow heading={tRR("latest")} cards={latestCards} />
 
       <ScrollRow heading={tRR("popular")} cards={popularCards} />
+
+      <MethodologyTeaser
+        scoreEyebrow={tRR("methScoreEyebrow")}
+        scoreTitle={tRR("methScoreTitle")}
+        scoreBody={tRR("methScoreBody")}
+        scoreCta={tRR("methScoreCta")}
+        pipelineEyebrow={tRR("methPipelineEyebrow")}
+        pipelineTitle={tRR("methPipelineTitle")}
+        pipelineBody={tRR("methPipelineBody")}
+        pipelineCta={tRR("methPipelineCta")}
+      />
 
       <TestingProcess
         heading={tRR("testing")}

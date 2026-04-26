@@ -61,7 +61,7 @@ export function PillarTemplate({ post }: { post: Post }) {
       <BreadcrumbJsonLd crumbs={crumbs} />
       {post.faq && <FaqJsonLd faq={post.faq} />}
 
-      <article className="mx-auto max-w-3xl px-6 pt-16 md:pt-24 pb-16">
+      <article className="mx-auto max-w-3xl px-6 pt-20 md:pt-32 pb-20">
         {/* 5. Amber tag pill, centered */}
         <div className="flex justify-center">
           <span
@@ -73,24 +73,32 @@ export function PillarTemplate({ post }: { post: Post }) {
 
         {/* 6. Centered H1 — IBM Plex Sans 400, 60px clamp, line-height 1.1 */}
         <h1
-          className="mt-6 text-center font-normal text-paper text-balance"
+          className="mt-8 md:mt-10 text-center font-normal text-paper text-balance"
           style={{
             fontFamily: '"IBM Plex Sans", Inter, system-ui, sans-serif',
             fontSize: "clamp(2.25rem, 5vw, 3.75rem)",
-            lineHeight: 1.1,
-            letterSpacing: "-0.01em",
+            lineHeight: 1.08,
+            letterSpacing: "-0.015em",
           }}
         >
           {post.h1}
         </h1>
 
         {/* 7. Centered subhead */}
-        <p className="mt-6 mx-auto max-w-2xl text-center text-[1.125rem] md:text-[1.1875rem] leading-[1.5] text-paper/85">
+        <p
+          className="mt-8 mx-auto max-w-2xl text-center text-[1.125rem] md:text-[1.1875rem] text-paper/85"
+          style={{ lineHeight: 1.55 }}
+        >
           {post.description}
         </p>
 
         {/* 8. MethodologyByline */}
-        <MethodologyByline reviewedOn={post.updatedAt} />
+        <div className="mt-8 flex justify-center">
+          <MethodologyByline
+            reviewedOn={post.updatedAt}
+            readingTime={post.readingTime}
+          />
+        </div>
 
         {/* 9. Thin rule */}
         <hr className="mt-12 border-0 border-t border-rule" />
