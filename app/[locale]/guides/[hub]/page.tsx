@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { getHub, hubs } from "@/lib/content/hubs";
+import { setRequestLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
+import { getHub, hubs, localizeHub } from "@/lib/content/hubs";
 import { postsByHub } from "@/lib/content/posts";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { BreadcrumbJsonLd } from "@/components/schema/BreadcrumbJsonLd";
@@ -10,6 +11,7 @@ import { pageMetadata } from "@/lib/seo";
 import { Eyebrow } from "@/components/editorial/Eyebrow";
 import { LabRule, DotRule } from "@/components/editorial/DotRule";
 import { RankNumeral } from "@/components/editorial/RankNumeral";
+import type { Locale } from "@/i18n/routing";
 
 const typeLabel: Record<string, string> = {
   pillar: "Protocol",
@@ -25,26 +27,30 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ hub: string }>;
+  params: Promise<{ hub: string; locale: Locale }>;
 }): Promise<Metadata> {
-  const { hub: hubSlug } = await params;
+  const { hub: hubSlug, locale } = await params;
   const hub = getHub(hubSlug);
   if (!hub) return {};
+  const hl = localizeHub(hub, locale);
   return pageMetadata({
-    title: hub.name,
-    description: hub.oneLiner,
+    title: hl.name,
+    description: hl.oneLiner,
     path: `/guides/${hub.slug}`,
+    locale,
   });
 }
 
 export default async function HubPage({
   params,
 }: {
-  params: Promise<{ hub: string }>;
+  params: Promise<{ hub: string; locale: Locale }>;
 }) {
-  const { hub: hubSlug } = await params;
+  const { hub: hubSlug, locale } = await params;
+  setRequestLocale(locale);
   const hub = getHub(hubSlug);
   if (!hub) notFound();
+  const hl = localizeHub(hub, locale);
 
   const hubIndex = hubs.findIndex((h) => h.slug === hub.slug);
   const hubPosts = postsByHub(hub.slug);
@@ -56,7 +62,7 @@ export default async function HubPage({
   const crumbs = [
     { label: "Home", href: "/" },
     { label: "Guides", href: "/#issue-contents" },
-    { label: hub.name },
+    { label: hl.name },
   ];
 
   return (
@@ -79,17 +85,17 @@ export default async function HubPage({
                   </Eyebrow>
                 </div>
                 <h1 className="display-headline mt-3 text-[2.4rem] md:text-[3.6rem] leading-[1.02]">
-                  {hub.name}
+                  {hl.name}
                 </h1>
                 <p className="mt-6 font-serif italic text-xl md:text-2xl text-paper/85 max-w-2xl leading-[1.4]">
-                  {hub.oneLiner}
+                  {hl.oneLiner}
                 </p>
               </div>
 
               <div className="md:col-span-4 md:pl-6 md:border-l md:border-rule">
                 <Eyebrow tone="slate">Our thesis</Eyebrow>
                 <p className="mt-3 text-[14.5px] text-paper/85 leading-relaxed">
-                  {hub.thesis}
+                  {hl.thesis}
                 </p>
                 <dl className="mt-5 pt-5 border-t border-rule space-y-2 text-[13px]">
                   <div className="flex justify-between">

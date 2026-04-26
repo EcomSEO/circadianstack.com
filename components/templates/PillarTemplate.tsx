@@ -1,7 +1,6 @@
 import type { Post } from "@/lib/content/posts";
 import { getHub } from "@/lib/content/hubs";
 import { relatedPosts } from "@/lib/content/posts";
-import { Breadcrumbs } from "../Breadcrumbs";
 import { ReviewStamp } from "../ReviewStamp";
 import { AuthorBio } from "../AuthorBio";
 import { RelatedPosts } from "../RelatedPosts";
@@ -10,22 +9,45 @@ import { EmailCapture } from "../EmailCapture";
 import { ArticleJsonLd } from "../schema/ArticleJsonLd";
 import { BreadcrumbJsonLd } from "../schema/BreadcrumbJsonLd";
 import { FaqJsonLd } from "../schema/FaqJsonLd";
-import { WideArticleShell } from "./PageShell";
-import { Eyebrow } from "../editorial/Eyebrow";
-import { DotRule, LabRule } from "../editorial/DotRule";
-import { KeyTakeaway } from "../editorial/KeyTakeaway";
+import { MethodologyByline } from "../editorial/MethodologyByline";
+import { BodyImageSlot } from "../editorial/BodyImageSlot";
 import { PullQuote } from "../editorial/PullQuote";
 import { ProtocolCard } from "../editorial/ProtocolCard";
 
+/**
+ * PillarTemplate — pliability-style long-form article shell.
+ *
+ * Section order (replicates pliability.com/stories anatomy):
+ *   1.  Sticky midnight bar (rendered globally in layout)
+ *   2.  Editorial strip (rendered in Header)
+ *   3.  Article container max-w-3xl
+ *   4.  Vertical breathing space pt-16 md:pt-24
+ *   5.  Amber tag pill, centered
+ *   6.  Centered H1 (IBM Plex Sans 400, clamp 2.25rem - 3.75rem)
+ *   7.  Centered subhead
+ *   8.  MethodologyByline
+ *   9.  Thin rule
+ *  10.  Caps "CIRCADIANSTACK · ISO date" meta row
+ *  11.  Big hero photo placeholder
+ *  12.  Protocol card (signature artifact, when present)
+ *  13.  First body paragraph (lede)
+ *  14.  Pullquote callout
+ *  15.  H2 sections rendered from items[]
+ *  16.  Inline image slots between sections
+ *  17.  FAQ as readable prose, not bordered cards
+ *  18.  SourcesList numbered at bottom
+ */
 export function PillarTemplate({ post }: { post: Post }) {
   const hub = getHub(post.hub);
   const crumbs = [
     { label: "Home", href: "/" },
-    { label: "Guides", href: "/#issue-contents" },
+    { label: "Guides", href: "/#guides" },
     hub ? { label: hub.name, href: `/guides/${hub.slug}` } : { label: "" },
     { label: post.title },
   ];
   const related = relatedPosts(post);
+
+  const isoDate = new Date(post.publishedAt).toLocaleDateString("en-CA");
 
   return (
     <>
@@ -39,149 +61,142 @@ export function PillarTemplate({ post }: { post: Post }) {
       <BreadcrumbJsonLd crumbs={crumbs} />
       {post.faq && <FaqJsonLd faq={post.faq} />}
 
-      <WideArticleShell
-        aside={
-          <nav className="space-y-6">
-            <div>
-              <Eyebrow tone="slate">On this page</Eyebrow>
-              <ul className="mt-3 space-y-2 text-[14px]">
-                <li>
-                  <a href="#lede" className="text-paper/85 hover:text-dawn">
-                    The short answer
-                  </a>
-                </li>
-                {post.protocolCard && (
-                  <li>
-                    <a
-                      href="#protocol"
-                      className="text-paper/85 hover:text-dawn"
-                    >
-                      Protocol card
-                    </a>
-                  </li>
-                )}
-                {post.faq && post.faq.length > 0 && (
-                  <li>
-                    <a href="#faq" className="text-paper/85 hover:text-dawn">
-                      FAQ
-                    </a>
-                  </li>
-                )}
-                <li>
-                  <a href="#sources" className="text-paper/85 hover:text-dawn">
-                    Sources
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="pt-6 border-t border-rule">
-              <Eyebrow tone="slate">The lab</Eyebrow>
-              <dl className="mt-3 space-y-2.5 text-[13.5px]">
-                <div className="flex justify-between">
-                  <dt className="text-slate">Cited</dt>
-                  <dd className="text-dawn tnum">
-                    {(post.sources ?? []).length} sources
-                  </dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-slate">Read time</dt>
-                  <dd className="text-dawn tnum">{post.readingTime} min</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-slate">Last updated</dt>
-                  <dd className="text-paper">
-                    {new Date(post.updatedAt).toLocaleDateString("en-US", {
-                      month: "short",
-                      year: "numeric",
-                    })}
-                  </dd>
-                </div>
-                {hub && (
-                  <div className="flex justify-between">
-                    <dt className="text-slate">Hub</dt>
-                    <dd className="text-paper text-right">{hub.shortName}</dd>
-                  </div>
-                )}
-              </dl>
-            </div>
-          </nav>
-        }
-      >
-        <Breadcrumbs crumbs={crumbs} />
-
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          <Eyebrow tone="dawn">Protocol Pillar</Eyebrow>
-          {hub && (
-            <span className="caps-label text-slate">· {hub.shortName}</span>
-          )}
+      <article className="mx-auto max-w-3xl px-6 pt-16 md:pt-24 pb-16">
+        {/* 5. Amber tag pill, centered */}
+        <div className="flex justify-center">
+          <span
+            className="inline-flex items-center bg-dawn text-midnight font-mono font-medium tracking-[0.1em] uppercase px-3 py-1.5 rounded-full text-[11px] leading-none"
+          >
+            {hub ? hub.shortName.toUpperCase() : "PROTOCOL"}
+          </span>
         </div>
 
+        {/* 6. Centered H1 — IBM Plex Sans 400, 60px clamp, line-height 1.1 */}
         <h1
-          id="lede"
-          className="display-headline mt-4 text-[2.25rem] md:text-[3.1rem] leading-[1.04]"
+          className="mt-6 text-center font-normal text-paper text-balance"
+          style={{
+            fontFamily: '"IBM Plex Sans", Inter, system-ui, sans-serif',
+            fontSize: "clamp(2.25rem, 5vw, 3.75rem)",
+            lineHeight: 1.1,
+            letterSpacing: "-0.01em",
+          }}
         >
           {post.h1}
         </h1>
 
-        <div className="mt-6 flex flex-wrap items-center gap-4">
-          <ReviewStamp
-            updatedAt={post.updatedAt}
-            readingTime={post.readingTime}
-          />
-        </div>
-
-        <LabRule className="mt-8" />
-
-        <p className="drop-cap mt-10 text-[1.12rem] md:text-[1.17rem] leading-[1.7] text-paper/90 max-w-[62ch]">
+        {/* 7. Centered subhead */}
+        <p className="mt-6 mx-auto max-w-2xl text-center text-[1.125rem] md:text-[1.1875rem] leading-[1.5] text-paper/85">
           {post.description}
         </p>
 
-        {/* Protocol card — the signature artifact, above the fold */}
+        {/* 8. MethodologyByline */}
+        <MethodologyByline reviewedOn={post.updatedAt} />
+
+        {/* 9. Thin rule */}
+        <hr className="mt-12 border-0 border-t border-rule" />
+
+        {/* 10. Caps CIRCADIANSTACK · ISO date row */}
+        <div className="mt-4 flex items-center justify-between caps-label text-slate">
+          <span>CIRCADIANSTACK</span>
+          <span className="tnum">{isoDate}</span>
+        </div>
+
+        {/* 11. Big hero photo */}
+        <BodyImageSlot aspect="16:10" variant="dawn" className="mt-10 !my-0" />
+
+        {/* 12. Protocol card — signature artifact */}
         {post.protocolCard && (
-          <div id="protocol">
+          <div id="protocol" className="mt-12">
             <ProtocolCard post={post} variant="featured" />
           </div>
         )}
 
-        <PullQuote attribution="CircadianStack house view">
-          We report doses, not vibes. Every recommendation ships as a Protocol
-          card — and every card cites the trial the dose came from.
-        </PullQuote>
+        {/* 13. First body paragraph (lede) */}
+        <div className="mt-12 prose">
+          <p>{post.description}</p>
 
-        <KeyTakeaway variant="key-takeaway" title="What this pillar covers">
-          The strongest available evidence, the dose-response range, the
-          timing window, and the failure modes — in priority order, with
-          every claim sourced to the primary study.
-        </KeyTakeaway>
+          {/* 14. Pullquote callout — sits early to break up the lede */}
+          <div className="not-prose">
+            <PullQuote attribution="CircadianStack house view, methodology v1.2">
+              We answer the question you actually asked in the first paragraph.
+              Everything that follows is the why — sourced from the trial and
+              the dose-response curve, written for someone reading on her phone
+              at 6am.
+            </PullQuote>
+          </div>
 
-        {post.faq && post.faq.length > 0 && (
-          <section id="faq" className="mt-14">
-            <Eyebrow tone="dawn">The FAQ</Eyebrow>
-            <h2 className="font-serif text-3xl text-paper mt-2 mb-6 leading-tight">
-              Questions readers arrive with.
-            </h2>
-            <dl className="divide-y divide-rule border-y border-rule">
-              {post.faq.map((f, i) => (
-                <div
-                  key={i}
-                  className="grid md:grid-cols-[1fr_2fr] gap-5 py-6 first:pt-0 last:pb-0"
-                >
-                  <dt className="font-serif text-lg text-paper leading-snug">
-                    {f.q}
-                  </dt>
-                  <dd className="text-[15.5px] text-paper/85 leading-relaxed">
-                    {f.a}
-                  </dd>
-                </div>
+          {/* 15. Items rendered as H2 sections — readable prose, not cards */}
+          {post.items && post.items.length > 0 && (
+            <>
+              {post.items.map((item, i) => (
+                <section key={item.rank} className="not-prose">
+                  <h2
+                    className="mt-16 mb-6 font-normal text-paper"
+                    style={{
+                      fontFamily: '"IBM Plex Sans", Inter, system-ui, sans-serif',
+                      fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
+                      lineHeight: 1.2,
+                      letterSpacing: "-0.01em",
+                    }}
+                  >
+                    {item.name}
+                  </h2>
+                  <p className="text-[1.125rem] leading-[1.7] text-paper/85 max-w-prose">
+                    {item.summary}
+                  </p>
+                  {/* Inline image every ~3 items */}
+                  {i > 0 && i % 3 === 0 && (
+                    <BodyImageSlot
+                      aspect="4:5"
+                      variant={i % 2 === 0 ? "zenith" : "ember"}
+                    />
+                  )}
+                </section>
               ))}
-            </dl>
-          </section>
-        )}
+            </>
+          )}
 
-        <DotRule className="my-14" />
+          {/* 17. FAQ rendered as readable prose, not bordered cards */}
+          {post.faq && post.faq.length > 0 && (
+            <section id="faq" className="not-prose">
+              <h2
+                className="mt-20 mb-8 font-normal text-paper"
+                style={{
+                  fontFamily: '"IBM Plex Sans", Inter, system-ui, sans-serif',
+                  fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
+                  lineHeight: 1.2,
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                Frequently asked questions
+              </h2>
+              <div className="space-y-10">
+                {post.faq.map((f, i) => (
+                  <div key={i}>
+                    <h3 className="text-[1.5rem] font-semibold leading-[1.3] text-paper">
+                      {f.q}
+                    </h3>
+                    <p className="mt-3 text-[1.125rem] leading-[1.7] text-paper/85 max-w-prose">
+                      {f.a}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
 
-        <div id="sources">
+        {/* 18. Sources — numbered list at bottom */}
+        <div id="sources" className="mt-20">
           <SourcesList sources={post.sources ?? []} />
+        </div>
+
+        {/* Reading meta — kept compact, no decorative chrome */}
+        <div className="mt-12 flex flex-wrap items-center gap-4">
+          <ReviewStamp
+            updatedAt={post.updatedAt}
+            readingTime={post.readingTime}
+          />
         </div>
 
         <AuthorBio />
@@ -190,7 +205,7 @@ export function PillarTemplate({ post }: { post: Post }) {
         <div className="mt-14">
           <EmailCapture variant="end-of-article" />
         </div>
-      </WideArticleShell>
+      </article>
     </>
   );
 }

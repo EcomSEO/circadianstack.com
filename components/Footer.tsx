@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { hubs } from "@/lib/content/hubs";
 import { Wordmark } from "./editorial/Wordmark";
 import { SITE } from "@/lib/content/site";

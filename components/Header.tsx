@@ -1,299 +1,325 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
-import { hubs } from "@/lib/content/hubs";
-import { Wordmark } from "./editorial/Wordmark";
-import { Dateline } from "./editorial/Dateline";
-import { ProtocolLog } from "./editorial/ProtocolLog";
-import { ChronotypeDot } from "./editorial/ChronotypeDot";
+import { useLocale, useTranslations } from "next-intl";
+import { hubs, localizeHub } from "@/lib/content/hubs";
+import type { Locale } from "@/i18n/routing";
+import { LocaleSwitcher } from "./LocaleSwitcher";
 import { ReadingProgress } from "./editorial/ReadingProgress";
 
 /**
- * CircadianStack masthead — dark, lab-notebook, monospace-adjacent.
+ * Runrepeat-style header — full-width dark midnight bar, big rounded search
+ * input dominating the center, "Stack reviews" + "Protocol guides" nav on
+ * the right. Secondary strip carries the editorial disclaimer + pipeline
+ * counter + methodology link.
  *
- * Top strip: Dateline (Protocol Log · Issue · Month · Domain) on the left,
- * editorial links on the right. Main bar: Wordmark + Guides dropdown +
- * Tools + Newsletter + primary CTA ("Take the Chronotype Quiz"). Mobile
- * collapses to a full-screen midnight menu.
- *
- * Playful nod: a small amber "current protocol window" indicator sits
- * beside the wordmark (see Wordmark.tsx). On the main bar we also show
- * a tiny chronotype pulse showing roughly where the reader is in the
- * 24-hour circadian cycle — amber for the morning-light window, zenith
- * for mid-day, ember for evening. Decorative only.
+ * - Bar: midnight #0B1929 solid, h-14 md:h-16, full-width, sticky top.
+ * - Logo: circadianstack wordmark cream, left.
+ * - Search: white rounded input + amber #E6A940 submit button.
+ * - Nav: Stack reviews · Protocol guides · LocaleSwitcher.
+ * - Mobile: search collapses to magnifying-glass; nav into hamburger.
  */
-
-function circadianWindowLabel(hour: number): {
-  label: string;
-  tone: "dawn" | "zenith" | "ember" | "slate";
-} {
-  if (hour >= 5 && hour < 10) return { label: "Morning-light window", tone: "dawn" };
-  if (hour >= 10 && hour < 17) return { label: "Mid-day · alertness peak", tone: "zenith" };
-  if (hour >= 17 && hour < 21) return { label: "Evening · DLMO approach", tone: "ember" };
-  return { label: "Biological night", tone: "slate" };
-}
-
 export function Header() {
-  const [guidesOpen, setGuidesOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [hour, setHour] = useState<number | null>(null);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const t = useTranslations("header");
+  const locale = useLocale() as Locale;
 
   useEffect(() => {
-    setHour(new Date().getHours());
-    const prefersReduced =
-      typeof window !== "undefined" &&
-      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) return;
-    const t = setInterval(() => setHour(new Date().getHours()), 60_000);
-    return () => clearInterval(t);
-  }, []);
-
-  // Close Guides dropdown + mobile menu on Escape; lock body scroll when
-  // the full-screen mobile menu is open.
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setGuidesOpen(false);
-        setMobileOpen(false);
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    if (mobileOpen) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = prev;
-      };
+    if (mobileOpen || mobileSearchOpen) {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "";
     }
-  }, [mobileOpen]);
-
-  const cycle = hour == null ? null : circadianWindowLabel(hour);
-  const cycleToneClass =
-    cycle?.tone === "zenith"
-      ? "bg-zenith"
-      : cycle?.tone === "ember"
-      ? "bg-ember"
-      : cycle?.tone === "slate"
-      ? "bg-slate"
-      : "bg-dawn";
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
+  }, [mobileOpen, mobileSearchOpen]);
 
   return (
-    <header className="relative bg-midnight/95 backdrop-blur sticky top-0 z-40 border-b border-rule">
+    <header className="sticky top-0 z-40">
       <ReadingProgress />
-      {/* Masthead strip — Protocol Log dateline + live observatory clock */}
-      <div className="border-b border-rule hidden md:block">
-        <div className="mx-auto max-w-6xl px-6 py-2 flex items-center justify-between gap-6">
-          <div className="flex items-center gap-4 min-w-0">
-            <Dateline />
-            <span aria-hidden className="text-rule hidden xl:inline">·</span>
-            <span className="hidden xl:inline-flex items-center gap-2">
-              <ChronotypeDot />
-              <ProtocolLog />
-            </span>
-          </div>
-          <div className="flex items-center gap-5 text-[11px] tracking-[0.14em] uppercase text-slate font-mono">
-            <Link href="/editorial-standards" className="nav-link">
-              Editorial
-            </Link>
-            <span aria-hidden className="text-rule">·</span>
-            <Link href="/about" className="nav-link">
-              About
-            </Link>
-            <span aria-hidden className="text-rule">·</span>
-            <Link href="/contact" className="nav-link">
-              Contact
-            </Link>
-          </div>
-        </div>
-      </div>
 
-      {/* Main bar */}
-      <div className="mx-auto max-w-6xl px-6 py-4 md:py-5 flex items-center justify-between gap-6">
-        <div className="flex items-center gap-4">
-          <Wordmark size="md" />
-          {cycle && (
-            <span
-              className="hidden lg:inline-flex items-center gap-2 pl-4 border-l border-rule caps-label text-slate"
-              title="Current circadian window · decorative"
+      {/* === Main bar === */}
+      <div role="banner" className="bg-midnight border-b border-rule">
+        <div className="mx-auto max-w-7xl px-4 md:px-6">
+          <div className="flex items-center gap-3 md:gap-5 h-14 md:h-16">
+            {/* LEFT — wordmark */}
+            <Link
+              href="/"
+              aria-label={t("logoAria")}
+              className="flex items-center gap-2 shrink-0"
             >
+              <Mark />
               <span
-                aria-hidden
-                className={`h-1.5 w-1.5 rounded-full ${cycleToneClass} animate-pulse`}
-              />
-              {cycle.label}
-            </span>
-          )}
-        </div>
-
-        <nav className="hidden md:flex items-center gap-7 text-sm">
-          <div
-            className="relative"
-            onMouseEnter={() => setGuidesOpen(true)}
-            onMouseLeave={() => setGuidesOpen(false)}
-          >
-            <button
-              type="button"
-              onClick={() => setGuidesOpen((v) => !v)}
-              className="nav-link flex items-center gap-1 cursor-pointer"
-              aria-expanded={guidesOpen}
-              aria-haspopup="menu"
-            >
-              Guides
-              <span aria-hidden className="text-dawn text-xs">▾</span>
-            </button>
-            {guidesOpen && (
-              <div
-                role="menu"
-                className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[22rem] bg-midnight-raised border border-rule rounded-sm shadow-card p-3"
+                className="text-paper text-lg md:text-xl font-semibold tracking-tight leading-none"
+                style={{ fontFamily: '"IBM Plex Sans", Inter, system-ui, sans-serif' }}
               >
-                <div className="eyebrow text-slate px-3 pb-2 border-b border-rule mb-2">
-                  The five hubs
-                </div>
-                {hubs.map((hub, i) => (
-                  <Link
-                    key={hub.slug}
-                    href={`/guides/${hub.slug}`}
-                    role="menuitem"
-                    className="flex items-start gap-3 px-3 py-2.5 hover:bg-dawn/[0.08] rounded-sm group"
-                  >
-                    <span className="tnum text-dawn/60 group-hover:text-dawn shrink-0 pt-0.5 text-sm">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <div className="text-paper font-medium leading-tight">
-                        {hub.name}
-                      </div>
-                      <div className="text-xs text-slate mt-0.5 leading-snug">
-                        {hub.oneLiner}
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+                circadianstack
+              </span>
+            </Link>
+
+            {/* CENTER — search (desktop) */}
+            <form
+              role="search"
+              action={`/${locale === "en" ? "" : locale}/guides`}
+              className="hidden md:flex items-center flex-1 max-w-[640px] mx-auto"
+            >
+              <label className="relative flex w-full items-stretch">
+                <span className="sr-only">{t("searchPlaceholder")}</span>
+                <input
+                  type="search"
+                  name="q"
+                  placeholder={t("searchPlaceholder")}
+                  className="w-full bg-paper rounded-l-sm text-midnight placeholder:text-slate-deep px-4 h-9 md:h-10 outline-none focus:ring-2 focus:ring-dawn/60"
+                  style={{ fontFamily: '"IBM Plex Sans", Inter, system-ui, sans-serif', fontSize: 14 }}
+                />
+                <button
+                  type="submit"
+                  aria-label={t("searchButton")}
+                  className="inline-flex items-center justify-center bg-dawn hover:bg-dawn-deep text-midnight rounded-r-sm px-4 h-9 md:h-10 transition-colors"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden>
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="m20 20-3.5-3.5" strokeLinecap="round" />
+                  </svg>
+                </button>
+              </label>
+            </form>
+
+            {/* RIGHT — nav (desktop) + locale + mobile triggers */}
+            <div className="flex items-center gap-3 md:gap-5 shrink-0 ml-auto md:ml-0">
+              {/* Reviews + Guides — desktop */}
+              <nav className="hidden md:flex items-center gap-5 text-[14px]">
+                <Link
+                  href="/guides"
+                  className="text-paper/85 hover:text-dawn transition-colors font-medium"
+                  style={{ fontFamily: '"IBM Plex Sans", Inter, system-ui, sans-serif' }}
+                >
+                  {t("navReviews")}
+                </Link>
+                <Link
+                  href="/guides"
+                  className="text-paper/85 hover:text-dawn transition-colors font-medium"
+                  style={{ fontFamily: '"IBM Plex Sans", Inter, system-ui, sans-serif' }}
+                >
+                  {t("navBuyingGuides")}
+                </Link>
+              </nav>
+
+              {/* Locale switcher — desktop */}
+              <div className="hidden md:inline-flex">
+                <LocaleSwitcher />
               </div>
-            )}
+
+              {/* Mobile search trigger */}
+              <button
+                onClick={() => setMobileSearchOpen(true)}
+                className="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-sm text-paper hover:bg-paper/10 transition-colors"
+                aria-label={t("searchButton")}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="m20 20-3.5-3.5" strokeLinecap="round" />
+                </svg>
+              </button>
+
+              {/* Hamburger — mobile */}
+              <button
+                onClick={() => setMobileOpen(true)}
+                className="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-sm text-paper hover:bg-paper/10 transition-colors"
+                aria-label="Open menu"
+                aria-expanded={mobileOpen}
+              >
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+                  <line x1="4" y1="7" x2="20" y2="7" />
+                  <line x1="4" y1="12" x2="20" y2="12" />
+                  <line x1="4" y1="17" x2="20" y2="17" />
+                </svg>
+              </button>
+            </div>
           </div>
-
-          <Link href="/chronotype-quiz" className="nav-link">
-            Quiz
-          </Link>
-          <Link href="/newsletter" className="nav-link">
-            Dispatch
-          </Link>
-          <Link
-            href="/chronotype-quiz"
-            className="btn-primary !py-2.5 !px-4 !text-sm"
-          >
-            Take the Chronotype Quiz
-            <span aria-hidden>→</span>
-          </Link>
-        </nav>
-
-        <button
-          type="button"
-          onClick={() => setMobileOpen(true)}
-          className="md:hidden text-paper inline-flex items-center justify-center h-11 w-11 -mr-2 cursor-pointer"
-          aria-label="Open menu"
-        >
-          <svg
-            width="26"
-            height="26"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-          >
-            <line x1="3" y1="7" x2="21" y2="7" />
-            <line x1="3" y1="12" x2="21" y2="12" />
-            <line x1="3" y1="17" x2="21" y2="17" />
-          </svg>
-        </button>
+        </div>
       </div>
 
+      {/* === Secondary strip — disclaimer + pipeline + methodology + standards === */}
+      <div
+        role="note"
+        aria-label="Editorial standards strip"
+        className="border-b border-rule bg-midnight-raised/85 backdrop-blur"
+      >
+        <div className="mx-auto max-w-7xl px-4 md:px-8 py-2 flex flex-wrap items-center justify-between gap-x-6 gap-y-1">
+          <div className="flex items-center gap-2 text-[10.5px] md:text-[11px] uppercase tracking-[0.16em] text-slate font-mono">
+            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-dawn" />
+            <span>{t("secondaryStrip")}</span>
+          </div>
+          <div className="hidden sm:flex items-center gap-3 text-[10.5px] md:text-[11px] uppercase tracking-[0.16em] text-slate font-mono">
+            <Link href="/pipeline" className="hover:text-dawn transition-colors">
+              {t("pipelineCount")}
+            </Link>
+            <span aria-hidden className="text-rule">·</span>
+            <Link href="/methodology" className="hover:text-dawn transition-colors">
+              {t("methodologyVersion")}
+            </Link>
+            <span aria-hidden className="text-rule">·</span>
+            <Link href="/editorial-standards" className="hover:text-dawn transition-colors">
+              {t("editorialStandardsLink")}
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* === Mobile search overlay === */}
+      {mobileSearchOpen && (
+        <div className="fixed inset-0 z-50 bg-midnight md:hidden">
+          <div className="flex items-center gap-2 px-4 h-14 border-b border-rule">
+            <button
+              onClick={() => setMobileSearchOpen(false)}
+              aria-label="Close search"
+              className="text-paper inline-flex items-center justify-center h-10 w-10 rounded-sm hover:bg-paper/10"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+            <form
+              role="search"
+              action={`/${locale === "en" ? "" : locale}/guides`}
+              className="flex-1 flex items-stretch"
+              onSubmit={() => setMobileSearchOpen(false)}
+            >
+              <input
+                type="search"
+                name="q"
+                autoFocus
+                placeholder={t("searchPlaceholder")}
+                className="flex-1 bg-paper text-midnight placeholder:text-slate-deep px-4 h-10 outline-none rounded-l-sm"
+                style={{ fontFamily: '"IBM Plex Sans", Inter, system-ui, sans-serif', fontSize: 14 }}
+              />
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center bg-dawn text-midnight rounded-r-sm px-4 h-10"
+                aria-label={t("searchButton")}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden>
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="m20 20-3.5-3.5" strokeLinecap="round" />
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* === Mobile drawer === */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 bg-midnight md:hidden overflow-auto">
-          <div className="flex items-center justify-between px-6 py-4 border-b border-rule">
-            <Wordmark size="sm" />
+          <div className="flex items-center justify-between px-5 py-4 border-b border-rule">
+            <Link href="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2">
+              <Mark />
+              <span
+                className="text-paper text-xl font-semibold"
+                style={{ fontFamily: '"IBM Plex Sans", Inter, system-ui, sans-serif' }}
+              >
+                circadianstack
+              </span>
+            </Link>
             <button
-              type="button"
               onClick={() => setMobileOpen(false)}
               aria-label="Close menu"
-              className="text-paper inline-flex items-center justify-center h-11 w-11 -mr-2 cursor-pointer"
+              className="text-paper inline-flex items-center justify-center h-11 w-11 rounded-sm hover:bg-paper/10"
             >
-              <svg
-                width="26"
-                height="26"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-              >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             </button>
           </div>
-          <nav className="flex flex-col px-6 py-8 gap-1">
-            <div className="eyebrow text-slate mb-2">The five hubs</div>
-            {hubs.map((hub, i) => (
-              <Link
-                key={hub.slug}
-                href={`/guides/${hub.slug}`}
-                onClick={() => setMobileOpen(false)}
-                className="min-h-[44px] py-3 text-lg text-paper font-serif flex items-center gap-3"
-              >
-                <span className="tnum text-dawn/60 text-base">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                {hub.name}
-              </Link>
-            ))}
-            <div className="eyebrow text-slate mt-6 mb-2">Masthead</div>
-            <Link
-              href="/about"
-              onClick={() => setMobileOpen(false)}
-              className="min-h-[44px] py-2 text-lg text-paper flex items-center"
-            >
-              About
+          <nav className="flex flex-col px-5 py-6 gap-1">
+            <div className="text-[11px] uppercase tracking-[0.16em] text-slate mb-3 font-medium font-mono">
+              {t("navReviews")} & {t("navBuyingGuides")}
+            </div>
+            {hubs.map((hub) => {
+              const hl = localizeHub(hub, locale);
+              return (
+                <Link
+                  key={hub.slug}
+                  href={`/guides/${hub.slug}`}
+                  onClick={() => setMobileOpen(false)}
+                  className="min-h-[48px] py-3 text-lg text-paper flex items-center rounded-sm hover:bg-paper/10 px-2 -mx-2"
+                >
+                  {hl.name}
+                </Link>
+              );
+            })}
+            <div className="text-[11px] uppercase tracking-[0.16em] text-slate mt-6 mb-3 font-medium font-mono">
+              {t("masthead")}
+            </div>
+            <Link href="/about" onClick={() => setMobileOpen(false)} className="min-h-[44px] py-2.5 text-paper flex items-center px-2 -mx-2 rounded-sm hover:bg-paper/10">
+              {t("navAbout")}
             </Link>
-            <Link
-              href="/editorial-standards"
-              onClick={() => setMobileOpen(false)}
-              className="min-h-[44px] py-2 text-lg text-paper flex items-center"
-            >
-              Editorial standards
+            <Link href="/methodology" onClick={() => setMobileOpen(false)} className="min-h-[44px] py-2.5 text-paper flex items-center px-2 -mx-2 rounded-sm hover:bg-paper/10">
+              {t("navMethodology")}
             </Link>
-            <Link
-              href="/newsletter"
-              onClick={() => setMobileOpen(false)}
-              className="min-h-[44px] py-2 text-lg text-paper flex items-center"
-            >
-              Dispatch
+            <Link href="/pipeline" onClick={() => setMobileOpen(false)} className="min-h-[44px] py-2.5 text-paper flex items-center px-2 -mx-2 rounded-sm hover:bg-paper/10">
+              {t("navPipeline")}
             </Link>
-            <Link
-              href="/contact"
-              onClick={() => setMobileOpen(false)}
-              className="min-h-[44px] py-2 text-lg text-paper flex items-center"
-            >
-              Contact
+            <Link href="/editorial-standards" onClick={() => setMobileOpen(false)} className="min-h-[44px] py-2.5 text-paper flex items-center px-2 -mx-2 rounded-sm hover:bg-paper/10">
+              {t("navEditorialStandards")}
             </Link>
-            <div className="mt-6">
-              <Link
-                href="/chronotype-quiz"
-                onClick={() => setMobileOpen(false)}
-                className="btn-primary w-full justify-center"
-              >
-                Take the Chronotype Quiz →
-              </Link>
+            <Link href="/newsletter" onClick={() => setMobileOpen(false)} className="min-h-[44px] py-2.5 text-paper flex items-center px-2 -mx-2 rounded-sm hover:bg-paper/10">
+              {t("navNewsletter")}
+            </Link>
+            <div className="mt-6 pt-6 border-t border-rule">
+              <LocaleSwitcher onNavigate={() => setMobileOpen(false)} />
             </div>
           </nav>
         </div>
       )}
     </header>
+  );
+}
+
+/* === Pieces === */
+
+/**
+ * CircadianStack brand mark — amber arc + paper micro-dots, evoking the
+ * dawn light hitting an observatory dome.
+ */
+function Mark() {
+  return (
+    <svg
+      viewBox="0 0 60 60"
+      width="26"
+      height="26"
+      role="img"
+      aria-hidden
+      className="shrink-0"
+    >
+      {/* Horizon */}
+      <path
+        d="M 8 36 L 52 36"
+        stroke="#E8E4D9"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        opacity="0.5"
+      />
+      {/* Sun arc */}
+      <path
+        d="M 14 36 A 16 16 0 0 1 46 36"
+        fill="none"
+        stroke="#E6A940"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+      />
+      {/* Sun core */}
+      <circle cx="30" cy="36" r="2.6" fill="#E6A940" />
+      {/* Stars (paper) */}
+      <circle cx="14" cy="20" r="1.2" fill="#E8E4D9" opacity="0.85" />
+      <circle cx="46" cy="16" r="1" fill="#E8E4D9" opacity="0.7" />
+      <circle cx="22" cy="12" r="0.9" fill="#E8E4D9" opacity="0.55" />
+    </svg>
   );
 }

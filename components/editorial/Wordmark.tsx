@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 /**
  * CircadianStack wordmark. Technical / monospace-adjacent — the site is a

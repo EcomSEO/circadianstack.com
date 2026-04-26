@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SITE } from "./content/site";
+import { defaultLocale, locales, type Locale } from "@/i18n/routing";
 
 const INDEX_WHEN_LAUNCHED: Metadata["robots"] = {
   index: true,
@@ -15,22 +16,71 @@ export function robotsMeta(): Metadata["robots"] {
   return SITE.launched ? INDEX_WHEN_LAUNCHED : NO_INDEX_PRE_LAUNCH;
 }
 
-export function canonical(path: string): string {
+/**
+ * Build a path for the given locale + page path. The default locale is
+ * served without a prefix (`/`, `/about`); other locales are prefixed
+ * (`/de`, `/de/about`).
+ */
+export function localePath(locale: Locale, path: string): string {
   const clean = path.startsWith("/") ? path : `/${path}`;
-  return `${SITE.url}${clean === "/" ? "" : clean}`;
+  if (locale === defaultLocale) {
+    return clean === "/" ? "" : clean;
+  }
+  return clean === "/" ? `/${locale}` : `/${locale}${clean}`;
 }
 
+export function localeUrl(locale: Locale, path: string): string {
+  const built = `${SITE.url}${localePath(locale, path)}`;
+  return built === SITE.url ? `${SITE.url}/` : built;
+}
+
+const OG_LOCALE: Record<Locale, string> = {
+  en: "en_US",
+  de: "de_DE",
+  fr: "fr_FR",
+  it: "it_IT",
+  es: "es_ES",
+  nl: "nl_NL",
+  pl: "pl_PL",
+  sv: "sv_SE",
+  pt: "pt_PT",
+  ro: "ro_RO",
+  cs: "cs_CZ",
+  no: "no_NO",
+};
+
+export function canonical(path: string): string {
+  return localeUrl(defaultLocale, path);
+}
+
+/**
+ * Page-level Metadata builder. Emits a locale-aware canonical, full
+ * `alternates.languages` map (twelve locales plus `x-default`), and an
+ * `openGraph.locale` tag in the right region format.
+ */
 export function pageMetadata(opts: {
   title: string;
   description: string;
   path: string;
+  locale?: Locale;
   ogType?: "website" | "article";
 }): Metadata {
-  const url = canonical(opts.path);
+  const locale = opts.locale ?? defaultLocale;
+  const url = localeUrl(locale, opts.path);
+
+  const languages: Record<string, string> = {};
+  for (const l of locales) {
+    languages[l] = localeUrl(l, opts.path);
+  }
+  languages["x-default"] = localeUrl(defaultLocale, opts.path);
+
   return {
     title: opts.title,
     description: opts.description,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      languages,
+    },
     robots: robotsMeta(),
     openGraph: {
       type: opts.ogType ?? "website",
@@ -38,7 +88,10 @@ export function pageMetadata(opts: {
       title: opts.title,
       description: opts.description,
       siteName: SITE.name,
-      locale: "en_US",
+      locale: OG_LOCALE[locale],
+      alternateLocale: locales
+        .filter((l) => l !== locale)
+        .map((l) => OG_LOCALE[l]),
     },
     twitter: {
       card: "summary_large_image",
