@@ -296,5 +296,19 @@
     "bodyAfter": ".",
     "reject": "Avvisa",
     "accept": "Acceptera"
+  },
+  "homeHero": {
+    "eyebrow": "KRONOBIOLOGI · DOSEXAKT",
+    "h1": "Vetenskapen om när, med doserna utskrivna.",
+    "dek": "Protokollkort, primärkällor och dostestade recensioner — för morgonljus, sömnens arkitektur, kronotyp och varje annan spak som ställer om en dygnsklocka.",
+    "ctaPrimary": "Läs den utvalda stacken",
+    "ctaSecondary": "Så bedömer vi",
+    "trendingLabel": "TRENDAR DENNA VECKA",
+    "reviewedBy": "GRANSKAD AV DR. IRIS CHEN, MD",
+    "categoriesHeading": "Bläddra efter kategori",
+    "categoriesCaption": "Fem hubbar om de kronobiologiska spakar som ställer om en dygnsklocka — ljus, sömn, kronotyp, verktyg, specialfall.",
+    "postsLabel": "INLÄGG",
+    "carouselHeading": "Utvalda stackar",
+    "carouselCaption": "De mest lästa protokollen denna månad — vart och ett med sin Stack Score och granskare."
   }
 }

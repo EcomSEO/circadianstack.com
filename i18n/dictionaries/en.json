@@ -57,6 +57,20 @@
     "terms": "Terms of service",
     "footerNote": "CircadianStack is an educational resource. Talk to a board-certified sleep physician for suspected sleep disorders. Affiliate commissions help fund dose testing; they do not change the rankings."
   },
+  "homeHero": {
+    "eyebrow": "CHRONOBIOLOGY · DOSE-ACCURATE",
+    "h1": "The science of when, with the doses spelled out.",
+    "dek": "Protocol cards, primary-source citations, and dose-accurate reviews — for morning light, sleep architecture, chronotype, and every other lever that resets a circadian clock.",
+    "ctaPrimary": "Read the featured stack",
+    "ctaSecondary": "How we score",
+    "trendingLabel": "TRENDING THIS WEEK",
+    "reviewedBy": "REVIEWED BY DR. IRIS CHEN, MD",
+    "categoriesHeading": "Browse by category",
+    "categoriesCaption": "Five hubs covering the chronobiology levers that reset a circadian clock — light, sleep, chronotype, tools, edge cases.",
+    "postsLabel": "POSTS",
+    "carouselHeading": "Featured stacks",
+    "carouselCaption": "The most-read protocols this month, each with its own Stack Score and reviewer."
+  },
   "homeRR": {
     "heroPrompt": "currently_indexing/",
     "heroLatestEntry": "morning sunlight protocol v2.1 · phase response curve at 1,000–10,000 lux",

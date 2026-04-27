@@ -296,5 +296,19 @@
     "bodyAfter": ".",
     "reject": "Rifiuta",
     "accept": "Accetta"
+  },
+  "homeHero": {
+    "eyebrow": "CRONOBIOLOGIA · DOSE PRECISA",
+    "h1": "La scienza del quando, con le dosi scritte chiaramente.",
+    "dek": "Schede protocollo, fonti primarie e recensioni dosate — per la luce mattutina, l’architettura del sonno, il cronotipo e ogni altra leva che ricalibra l’orologio circadiano.",
+    "ctaPrimary": "Leggi lo stack in evidenza",
+    "ctaSecondary": "Come valutiamo",
+    "trendingLabel": "DI TENDENZA QUESTA SETTIMANA",
+    "reviewedBy": "REVISIONATO DA DR. IRIS CHEN, MD",
+    "categoriesHeading": "Sfoglia per categoria",
+    "categoriesCaption": "Cinque hub sulle leve cronobiologiche che ricalibrano un orologio — luce, sonno, cronotipo, strumenti, casi limite.",
+    "postsLabel": "ARTICOLI",
+    "carouselHeading": "Stack in evidenza",
+    "carouselCaption": "I protocolli più letti del mese, ciascuno con il proprio Stack Score e il revisore."
   }
 }

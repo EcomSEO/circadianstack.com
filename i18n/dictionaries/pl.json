@@ -296,5 +296,19 @@
     "bodyAfter": ".",
     "reject": "Odrzuć",
     "accept": "Akceptuję"
+  },
+  "homeHero": {
+    "eyebrow": "CHRONOBIOLOGIA · DOKŁADNA DAWKA",
+    "h1": "Nauka „kiedy” — z wypisanymi dawkami.",
+    "dek": "Karty protokołów, pierwotne źródła i recenzje z dawkami — dla porannego światła, architektury snu, chronotypu i każdej innej dźwigni, która resetuje zegar dobowy.",
+    "ctaPrimary": "Przeczytaj wybrany stack",
+    "ctaSecondary": "Jak oceniamy",
+    "trendingLabel": "NA TOPIE W TYM TYGODNIU",
+    "reviewedBy": "ZWERYFIKOWANE PRZEZ DR. IRIS CHEN, MD",
+    "categoriesHeading": "Przeglądaj według kategorii",
+    "categoriesCaption": "Pięć działów o chronobiologicznych dźwigniach, które ustawiają zegar dobowy — światło, sen, chronotyp, narzędzia, przypadki graniczne.",
+    "postsLabel": "ARTYKUŁÓW",
+    "carouselHeading": "Wybrane stacki",
+    "carouselCaption": "Najczęściej czytane protokoły miesiąca — każdy z własnym Stack Score i recenzentem."
   }
 }

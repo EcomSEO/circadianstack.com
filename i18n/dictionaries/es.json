@@ -296,5 +296,19 @@
     "bodyAfter": ".",
     "reject": "Rechazar",
     "accept": "Aceptar"
+  },
+  "homeHero": {
+    "eyebrow": "CRONOBIOLOGÍA · DOSIS EXACTA",
+    "h1": "La ciencia del cuándo, con las dosis explicitadas.",
+    "dek": "Fichas de protocolo, fuentes primarias y reseñas con dosis — para la luz matinal, la arquitectura del sueño, el cronotipo y cualquier otra palanca que reajuste un reloj circadiano.",
+    "ctaPrimary": "Leer el stack destacado",
+    "ctaSecondary": "Cómo puntuamos",
+    "trendingLabel": "TENDENCIA ESTA SEMANA",
+    "reviewedBy": "REVISADO POR DR. IRIS CHEN, MD",
+    "categoriesHeading": "Explorar por categoría",
+    "categoriesCaption": "Cinco hubs sobre las palancas cronobiológicas que reajustan un reloj — luz, sueño, cronotipo, herramientas, casos límite.",
+    "postsLabel": "ARTÍCULOS",
+    "carouselHeading": "Stacks destacados",
+    "carouselCaption": "Los protocolos más leídos del mes, cada uno con su Stack Score y revisor."
   }
 }

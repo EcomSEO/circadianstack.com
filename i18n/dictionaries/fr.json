@@ -296,5 +296,19 @@
     "bodyAfter": ".",
     "reject": "Refuser",
     "accept": "Accepter"
+  },
+  "homeHero": {
+    "eyebrow": "CHRONOBIOLOGIE · DOSE EXACTE",
+    "h1": "La science du quand, avec les doses précisées.",
+    "dek": "Fiches protocole, sources primaires et tests à la dose — pour la lumière matinale, l’architecture du sommeil, le chronotype et tous les autres leviers qui recalent une horloge circadienne.",
+    "ctaPrimary": "Lire le stack en vedette",
+    "ctaSecondary": "Notre méthode",
+    "trendingLabel": "TENDANCE CETTE SEMAINE",
+    "reviewedBy": "RELU PAR DR. IRIS CHEN, MD",
+    "categoriesHeading": "Parcourir par catégorie",
+    "categoriesCaption": "Cinq rubriques sur les leviers chronobiologiques qui recalent une horloge — lumière, sommeil, chronotype, outils, cas particuliers.",
+    "postsLabel": "ARTICLES",
+    "carouselHeading": "Stacks à la une",
+    "carouselCaption": "Les protocoles les plus lus du mois — chacun avec son Stack Score et son relecteur."
   }
 }

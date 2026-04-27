@@ -296,5 +296,19 @@
     "bodyAfter": ".",
     "reject": "Rejeitar",
     "accept": "Aceitar"
+  },
+  "homeHero": {
+    "eyebrow": "CRONOBIOLOGIA · DOSE PRECISA",
+    "h1": "A ciência do quando, com as doses por extenso.",
+    "dek": "Cartões de protocolo, fontes primárias e análises com dose — para a luz da manhã, a arquitetura do sono, o cronotipo e todas as outras alavancas que ajustam o relógio circadiano.",
+    "ctaPrimary": "Ler o stack em destaque",
+    "ctaSecondary": "Como pontuamos",
+    "trendingLabel": "EM ALTA ESTA SEMANA",
+    "reviewedBy": "REVISTO POR DR. IRIS CHEN, MD",
+    "categoriesHeading": "Navegar por categoria",
+    "categoriesCaption": "Cinco hubs sobre as alavancas cronobiológicas que ajustam um relógio — luz, sono, cronotipo, ferramentas, casos-limite.",
+    "postsLabel": "ARTIGOS",
+    "carouselHeading": "Stacks em destaque",
+    "carouselCaption": "Os protocolos mais lidos do mês — cada um com o seu Stack Score e revisor."
   }
 }

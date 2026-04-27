@@ -296,5 +296,19 @@
     "bodyAfter": ".",
     "reject": "Ablehnen",
     "accept": "Akzeptieren"
+  },
+  "homeHero": {
+    "eyebrow": "CHRONOBIOLOGIE · DOSIS-GENAU",
+    "h1": "Die Wissenschaft des Wann — mit den Dosen ausgeschrieben.",
+    "dek": "Protokoll-Karten, Primärquellen und dosismessgenaue Reviews — für Morgenlicht, Schlafarchitektur, Chronotyp und jeden anderen Hebel, der die innere Uhr neu stellt.",
+    "ctaPrimary": "Featured Stack lesen",
+    "ctaSecondary": "Wie wir bewerten",
+    "trendingLabel": "DIESE WOCHE IM TREND",
+    "reviewedBy": "GEPRÜFT VON DR. IRIS CHEN, MD",
+    "categoriesHeading": "Nach Kategorie stöbern",
+    "categoriesCaption": "Fünf Hubs für die chronobiologischen Hebel, die den Tag-Nacht-Rhythmus neu stellen — Licht, Schlaf, Chronotyp, Werkzeuge, Sonderfälle.",
+    "postsLabel": "BEITRÄGE",
+    "carouselHeading": "Empfohlene Stacks",
+    "carouselCaption": "Die meistgelesenen Protokolle dieses Monats — mit Stack Score und Prüfung."
   }
 }

@@ -296,5 +296,19 @@
     "bodyAfter": ".",
     "reject": "Odmítnout",
     "accept": "Přijmout"
+  },
+  "homeHero": {
+    "eyebrow": "CHRONOBIOLOGIE · PŘESNÁ DÁVKA",
+    "h1": "Věda o tom kdy — s dávkami vypsanými.",
+    "dek": "Karty protokolů, primární zdroje a recenze s přesnými dávkami — pro ranní světlo, architekturu spánku, chronotyp a každou další páku, která přestavuje cirkadiánní hodiny.",
+    "ctaPrimary": "Přečíst doporučený stack",
+    "ctaSecondary": "Jak hodnotíme",
+    "trendingLabel": "TENTO TÝDEN POPULÁRNÍ",
+    "reviewedBy": "REVIDOVÁNO DR. IRIS CHEN, MD",
+    "categoriesHeading": "Procházet podle kategorie",
+    "categoriesCaption": "Pět rubrik o cirkadiánních pákách, které přestavují hodiny — světlo, spánek, chronotyp, nástroje, hraniční případy.",
+    "postsLabel": "PŘÍSPĚVKŮ",
+    "carouselHeading": "Doporučené stacky",
+    "carouselCaption": "Nejčtenější protokoly měsíce — každý s vlastním Stack Score a recenzentem."
   }
 }

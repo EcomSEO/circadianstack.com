@@ -296,5 +296,19 @@
     "bodyAfter": ".",
     "reject": "Respinge",
     "accept": "Acceptă"
+  },
+  "homeHero": {
+    "eyebrow": "CRONOBIOLOGIE · DOZĂ EXACTĂ",
+    "h1": "Știința lui când, cu dozele scrise clar.",
+    "dek": "Fișe de protocol, surse primare și analize cu doza — pentru lumina dimineții, arhitectura somnului, cronotip și orice altă pârghie care recalibrează ceasul circadian.",
+    "ctaPrimary": "Citește stack-ul recomandat",
+    "ctaSecondary": "Cum punctăm",
+    "trendingLabel": "TREND ÎN ACEASTĂ SĂPTĂMÂNĂ",
+    "reviewedBy": "REVIZUIT DE DR. IRIS CHEN, MD",
+    "categoriesHeading": "Răsfoiește pe categorii",
+    "categoriesCaption": "Cinci secțiuni despre pârghiile cronobiologice care recalibrează un ceas — lumină, somn, cronotip, instrumente, cazuri-limită.",
+    "postsLabel": "ARTICOLE",
+    "carouselHeading": "Stack-uri recomandate",
+    "carouselCaption": "Cele mai citite protocoale ale lunii — fiecare cu propriul Stack Score și revizor."
   }
 }

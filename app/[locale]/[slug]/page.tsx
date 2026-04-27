@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { getPost, posts } from "@/lib/content/posts";
-import { PillarTemplate } from "@/components/templates/PillarTemplate";
-import { ComparisonTemplate } from "@/components/templates/ComparisonTemplate";
-import { ClusterTemplate } from "@/components/templates/ClusterTemplate";
-import { ListicleTemplate } from "@/components/templates/ListicleTemplate";
+import { ArticleTemplate } from "@/components/templates/ArticleTemplate";
 import { TranslationPendingBanner } from "@/components/TranslationPendingBanner";
 import { pageMetadata } from "@/lib/seo";
 import { localizePost } from "@/lib/content/posts-i18n";
@@ -85,35 +82,12 @@ export default async function PostPage({
   const banner =
     locale !== defaultLocale ? <TranslationPendingBanner /> : null;
 
-  switch (post.postType) {
-    case "pillar":
-      return (
-        <>
-          {banner}
-          <PillarTemplate post={localizedPost} />
-        </>
-      );
-    case "comparison":
-      return (
-        <>
-          {banner}
-          <ComparisonTemplate post={localizedPost} />
-        </>
-      );
-    case "listicle":
-      return (
-        <>
-          {banner}
-          <ListicleTemplate post={localizedPost} />
-        </>
-      );
-    case "cluster":
-    default:
-      return (
-        <>
-          {banner}
-          <ClusterTemplate post={localizedPost} />
-        </>
-      );
-  }
+  // Healthline-grade unified ArticleTemplate handles pillar / comparison /
+  // cluster / listicle via the post's items / faq / protocolCard fields.
+  return (
+    <>
+      {banner}
+      <ArticleTemplate post={localizedPost} />
+    </>
+  );
 }

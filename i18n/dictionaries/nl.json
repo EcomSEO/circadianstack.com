@@ -296,5 +296,19 @@
     "bodyAfter": ".",
     "reject": "Weigeren",
     "accept": "Accepteren"
+  },
+  "homeHero": {
+    "eyebrow": "CHRONOBIOLOGIE · DOSIS-NAUWKEURIG",
+    "h1": "De wetenschap van wanneer, met de dosis er bij geschreven.",
+    "dek": "Protocolkaarten, primaire bronnen en dosisgemeten reviews — voor ochtendlicht, slaaparchitectuur, chronotype en elke andere hefboom die een circadiane klok bijstelt.",
+    "ctaPrimary": "Lees de uitgelichte stack",
+    "ctaSecondary": "Hoe we scoren",
+    "trendingLabel": "DEZE WEEK IN TREND",
+    "reviewedBy": "BEOORDEELD DOOR DR. IRIS CHEN, MD",
+    "categoriesHeading": "Bladeren per categorie",
+    "categoriesCaption": "Vijf hubs over de chronobiologische hefbomen die een klok bijstellen — licht, slaap, chronotype, tools, randgevallen.",
+    "postsLabel": "ARTIKELEN",
+    "carouselHeading": "Uitgelichte stacks",
+    "carouselCaption": "De meest gelezen protocollen van deze maand — elk met een Stack Score en een beoordelaar."
   }
 }

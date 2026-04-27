@@ -296,5 +296,19 @@
     "bodyAfter": ".",
     "reject": "Avvis",
     "accept": "Godta"
+  },
+  "homeHero": {
+    "eyebrow": "KRONOBIOLOGI · DOSEPRESIS",
+    "h1": "Vitenskapen om når, med dosene skrevet ut.",
+    "dek": "Protokollkort, primærkilder og dosenøyaktige tester — for morgenlys, søvnens arkitektur, kronotype og hver annen spak som stiller om døgnrytmen.",
+    "ctaPrimary": "Les den utvalgte stacken",
+    "ctaSecondary": "Slik scorer vi",
+    "trendingLabel": "TRENDER DENNE UKEN",
+    "reviewedBy": "VURDERT AV DR. IRIS CHEN, MD",
+    "categoriesHeading": "Bla etter kategori",
+    "categoriesCaption": "Fem hubber om de kronobiologiske spakene som stiller om en klokke — lys, søvn, kronotype, verktøy, spesialtilfeller.",
+    "postsLabel": "INNLEGG",
+    "carouselHeading": "Utvalgte stacker",
+    "carouselCaption": "De mest leste protokollene denne måneden — hver med sin Stack Score og fagfellevurderer."
   }
 }
