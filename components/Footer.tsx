@@ -3,6 +3,7 @@ import { hubs } from "@/lib/content/hubs";
 import { Wordmark } from "./editorial/Wordmark";
 import { SITE } from "@/lib/content/site";
 import { FooterTelemetry } from "./editorial/FooterTelemetry";
+import { RegulatoryAuthoritiesStrip } from "./RegulatoryAuthoritiesStrip";
 
 /**
  * Dark editorial masthead footer — hub index with amber rank numerals,
@@ -140,21 +141,58 @@ export function Footer() {
                   Terms of service
                 </Link>
               </li>
+              <li>
+                <Link
+                  href={"/cookies" as never}
+                  className="text-paper hover:text-dawn transition"
+                >
+                  Cookie policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={"/medical-disclaimer" as never}
+                  className="text-paper hover:text-dawn transition"
+                >
+                  Medical disclaimer
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={"/impressum" as never}
+                  className="text-paper hover:text-dawn transition"
+                >
+                  Impressum
+                </Link>
+              </li>
             </ul>
 
             <div className="mt-8 p-4 border border-rule rounded-sm bg-midnight-raised/60">
               <div className="caps-label text-dawn mb-1">Medical note</div>
               <p className="text-[13px] text-paper/75 leading-relaxed">
                 Nothing on this site is medical advice. For suspected sleep
-                disorders, consult a board-certified sleep physician.
+                disorders, consult a board-certified sleep physician. See the
+                full{" "}
+                <Link
+                  href={"/medical-disclaimer" as never}
+                  className="text-dawn underline decoration-dawn/40 hover:decoration-dawn"
+                >
+                  Medical disclaimer
+                </Link>
+                .
               </p>
             </div>
           </div>
         </div>
       </div>
 
+      {/* Per-locale regulatory authorities (medicines + DPA) */}
+      <div className="mx-auto max-w-6xl px-6">
+        <RegulatoryAuthoritiesStrip />
+      </div>
+
       {/* Imprint strip */}
-      <div className="border-t border-rule">
+      <div className="border-t border-rule mt-6">
         <div className="mx-auto max-w-6xl px-6 py-6 flex flex-col md:flex-row justify-between gap-3 text-[11px] tracking-[0.14em] uppercase text-slate font-mono">
           <div className="flex items-center gap-3 flex-wrap">
             <span>©&nbsp;{new Date().getFullYear()} CircadianStack</span>

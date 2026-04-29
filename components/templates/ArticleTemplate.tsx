@@ -15,6 +15,8 @@ import { NewsletterInline } from "../article/NewsletterInline";
 import { RelatedStacks } from "../article/RelatedStacks";
 import { ProtocolCard } from "../editorial/ProtocolCard";
 import { PRIMARY_SLEEP_REVIEWER } from "@/lib/content/reviewers";
+import { BreadcrumbJsonLd } from "../schema/BreadcrumbJsonLd";
+import { ItemListJsonLd } from "../schema/ItemListJsonLd";
 
 const HUB_TO_PHASE: Record<string, Phase> = {
   "light-and-zeitgebers": "MORNING",
@@ -115,6 +117,10 @@ export function ArticleTemplate({ post }: { post: Post }) {
         about={about}
       />
       {post.faq && <FaqJsonLd faq={post.faq} />}
+      <BreadcrumbJsonLd crumbs={crumbs} />
+      {post.items && post.items.length > 0 && (
+        <ItemListJsonLd items={post.items} />
+      )}
 
       {/* Editorial hero band */}
       <header className="border-b border-rule relative overflow-hidden">
