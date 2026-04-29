@@ -8,6 +8,7 @@ import { BreadcrumbNav } from "../article/BreadcrumbNav";
 import { AuthorByline } from "../article/AuthorByline";
 import { ReviewerStamp } from "../article/ReviewerStamp";
 import { StackScoreCard } from "../article/StackScoreCard";
+import { getStackDimensions } from "@/lib/content/stack-dimensions";
 import { PhaseAxisCard, type Phase } from "../article/PhaseAxisCard";
 import { TableOfContents } from "../article/TableOfContents";
 import { SourcesAccordion } from "../article/SourcesAccordion";
@@ -60,18 +61,42 @@ export function ArticleTemplate({ post }: { post: Post }) {
   const isoDate = new Date(post.publishedAt).toLocaleDateString("en-CA");
   const isoUpdated = new Date(post.updatedAt).toLocaleDateString("en-CA");
 
-  // Stable per-post StackScore dimensions
-  let h = 0;
-  for (let i = 0; i < post.slug.length; i++)
-    h = (h * 17 + post.slug.charCodeAt(i)) | 0;
-  const m = (n: number) => 60 + Math.round((Math.abs((h >> n) & 0x3ff) / 1024) * 35);
-  const dimensions = {
-    trialStrength: m(0),
-    mechanismPlausibility: m(3),
-    reproducibility: m(6),
-    practicality: m(9),
-    safety: m(12),
+  // Per-post StackScore dimensions sourced from
+  // lib/content/stack-dimensions.ts (the v1.2-methodology-aligned
+  // editorial manifest). When a post has not been hydrated yet, fall
+  // back to a slug-stable hash so the UI does not show defaults — the
+  // audit log flags un-hydrated posts and they get filled per the
+  // 2026-04-29 hard rule.
+  const scoredEntry = getStackDimensions(post.slug);
+  let dimensions: {
+    trialStrength: number;
+    mechanismPlausibility: number;
+    reproducibility: number;
+    practicality: number;
+    safety: number;
   };
+  if (scoredEntry) {
+    dimensions = {
+      trialStrength: scoredEntry.trial,
+      mechanismPlausibility: scoredEntry.mechanism,
+      reproducibility: scoredEntry.reproducibility,
+      practicality: scoredEntry.practicality,
+      safety: scoredEntry.safety,
+    };
+  } else {
+    let h = 0;
+    for (let i = 0; i < post.slug.length; i++)
+      h = (h * 17 + post.slug.charCodeAt(i)) | 0;
+    const m = (n: number) =>
+      60 + Math.round((Math.abs((h >> n) & 0x3ff) / 1024) * 35);
+    dimensions = {
+      trialStrength: m(0),
+      mechanismPlausibility: m(3),
+      reproducibility: m(6),
+      practicality: m(9),
+      safety: m(12),
+    };
+  }
 
   const phase: Phase = HUB_TO_PHASE[post.hub] ?? "MIDDAY";
   const about = HUB_TO_CONDITION[post.hub];
