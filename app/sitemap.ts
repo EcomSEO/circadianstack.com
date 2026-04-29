@@ -1,8 +1,16 @@
 import type { MetadataRoute } from "next";
 import { hubs } from "@/lib/content/hubs";
 import { posts } from "@/lib/content/posts";
-import { defaultLocale, locales } from "@/i18n/routing";
+import { defaultLocale, type Locale } from "@/i18n/routing";
 import { localeUrl } from "@/lib/seo";
+
+/**
+ * Per the 2026-04-29 audit-fix sweep: hreflang alternates trimmed to
+ * en/de/fr/x-default. Other locale routes still resolve, but the
+ * chronobiology term-base in cs/no/sv/ro/pl/pt/it doesn't justify the
+ * translation cost through Wave-3. Re-evaluate at Gate C.
+ */
+const HREFLANG_LOCALES: readonly Locale[] = ["en", "de", "fr"];
 
 /**
  * Locale-aware sitemap. For every URL we emit one entry per locale and
@@ -24,12 +32,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     } = {}
   ): MetadataRoute.Sitemap => {
     const languages: Record<string, string> = {};
-    for (const l of locales) {
+    for (const l of HREFLANG_LOCALES) {
       languages[l] = localeUrl(l, path);
     }
     languages["x-default"] = localeUrl(defaultLocale, path);
 
-    return locales.map((l) => ({
+    return HREFLANG_LOCALES.map((l) => ({
       url: localeUrl(l, path),
       lastModified: opts.lastModified ?? now,
       changeFrequency: opts.changeFrequency,

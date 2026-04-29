@@ -14,6 +14,7 @@ import { SourcesAccordion } from "../article/SourcesAccordion";
 import { NewsletterInline } from "../article/NewsletterInline";
 import { RelatedStacks } from "../article/RelatedStacks";
 import { ProtocolCard } from "../editorial/ProtocolCard";
+import { PRIMARY_SLEEP_REVIEWER } from "@/lib/content/reviewers";
 
 const HUB_TO_PHASE: Record<string, Phase> = {
   "light-and-zeitgebers": "MORNING",
@@ -82,9 +83,12 @@ export function ArticleTemplate({ post }: { post: Post }) {
   if (post.faq?.length) toc.push({ id: "faq", label: "Questions" });
   if (post.sources?.length) toc.push({ id: "sources", label: "Citations" });
 
-  const reviewerName = "Dr. Iris Chen";
-  const reviewerCredentials = "MD, Sleep Medicine";
-  const reviewerJobTitle = "Board-certified sleep physician";
+  // Centralized reviewer record. While `verifiedCredential` is false,
+  // schema strips Person.image and the badge surfaces "credential pending".
+  const reviewer = PRIMARY_SLEEP_REVIEWER;
+  const reviewerName = reviewer.name;
+  const reviewerCredentials = reviewer.credentials;
+  const reviewerJobTitle = reviewer.jobTitle;
   const authorName = "The CircadianStack Editorial Team";
   const authorRole = "Editorial · Chronobiology desk";
 
