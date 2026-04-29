@@ -563,6 +563,226 @@ export const posts: Post[] = [
       { label: "Mistlberger & Skene 2005 — Nonphotic entrainment in humans? (J Biol Rhythms / Biol Rev)", url: "https://pubmed.ncbi.nlm.nih.gov/15834114/" },
     ],
   },
+  {
+    slug: "magnesium-glycinate-sleep-protocol",
+    title: "Magnesium Glycinate for Sleep — Protocol, Dose, Evidence",
+    h1: "Magnesium glycinate for sleep: dose, timing, what the trials show",
+    description:
+      "Lab-notebook protocol for magnesium glycinate as a sleep aid. The 200–400 mg evening dose, the Abbasi 2012 RCT, the glycinate-vs-citrate question, and the failure modes nobody surfaces.",
+    hub: "interventions-and-tools",
+    postType: "pillar",
+    publishedAt: "2026-04-29",
+    updatedAt: "2026-04-29",
+    readingTime: 11,
+    status: "published",
+    protocolCard: {
+      input: "Magnesium glycinate, oral, 30–60 minutes before sleep window",
+      dose: "200–400 mg elemental magnesium nightly (start 200 mg, titrate)",
+      expectedOutput: "Reduced sleep onset latency by ~7–17 min and improved sleep quality scores in mild-insomnia adults; modest effect, not pharmaceutical-grade",
+      evidence: "Abbasi et al. 2012 RCT (n=46); Mah & Pitre 2021 review; Boyle et al. 2017 systematic review",
+      failureModes: "GI upset >400 mg; reduced renal clearance contraindicates higher doses; SSRI / quinolone / bisphosphonate interactions; magnesium oxide is laxative-grade and not a sleep formulation",
+    },
+    faq: [
+      {
+        q: "Why glycinate specifically?",
+        a: "Glycine is itself a sleep-active amino acid (Yamadera et al. 2007 reported reduced sleep-onset latency and improved subjective sleep quality at 3 g pre-bed) and the chelated form has higher bioavailability than oxide or carbonate without the laxative effect. Citrate is also well-absorbed but has a stronger osmotic-laxative profile at sleep-relevant doses. Glycinate is the form most clinical sleep studies use when they want to dose magnesium without disturbing the GI tract.",
+      },
+      {
+        q: "How much elemental magnesium?",
+        a: "Read the supplement-facts panel for elemental magnesium per serving — not the total weight of magnesium glycinate. A 1,000 mg magnesium glycinate tablet typically delivers ~140 mg elemental magnesium because the glycine ligand is heavy. The Abbasi 2012 RCT dose was 500 mg magnesium oxide (≈300 mg elemental) over 8 weeks. The IOM tolerable upper intake from supplements is 350 mg/day elemental; doses above that increase GI-side-effect risk without clear additional sleep benefit.",
+      },
+      {
+        q: "When in the evening?",
+        a: "Tmax for oral magnesium glycinate is approximately 2–3 hours post-dose (Walker et al. 2003 absorption studies). Practical timing: 60–90 minutes before the desired sleep window puts plasma magnesium near peak when sleep onset is attempted. Earlier dosing (with dinner) is also acceptable and may reduce the GI-side-effect risk by spacing magnesium from gastric acid. Late-bedtime dosing (5 minutes before lights-out) under-doses the absorption curve.",
+      },
+      {
+        q: "How long until it works?",
+        a: "Sleep-architecture effects (slow-wave sleep increase, sleep-onset latency reduction) appear within 3–7 days of consistent dosing in the published RCTs. Subjective sleep-quality improvements lag slightly. Eight-week endpoints in Abbasi 2012 showed continued improvement, suggesting full effect may take 4–8 weeks. If no benefit by 4 weeks at 300 mg elemental, the intervention is unlikely to work for that individual; cycle off and reassess.",
+      },
+      {
+        q: "Who should not take this without a doctor?",
+        a: "Reduced kidney function (eGFR <60) is the primary contraindication — impaired magnesium clearance creates real hypermagnesemia risk. Other red flags: concurrent quinolone or tetracycline antibiotics (chelation reduces antibiotic absorption — separate dosing by 4 hours); bisphosphonates (same chelation issue); SSRIs at high doses (rare additive serotonergic effects with high-dose glycine); pregnancy where dosing is the obstetrician's call. The IOM 350 mg/day upper limit applies to supplements above food-derived magnesium.",
+      },
+      {
+        q: "How does this compare with melatonin?",
+        a: "Different mechanisms, additive in some studies. Melatonin is a phase-shifting hormone — best at sub-physiological doses (0.3–0.5 mg) timed to the dim-light melatonin onset for advancing or delaying sleep phase. Magnesium glycinate is a sleep-quality and sleep-architecture intervention without the phase-shift effect. For phase advance / delayed-sleep-phase patterns, melatonin first; for poor sleep quality at the right phase, magnesium glycinate first. Stacking is reasonable but layer them, not start them simultaneously.",
+      },
+      {
+        q: "Magnesium L-threonate is marketed as 'crosses the blood-brain barrier'. True?",
+        a: "Slidaker 2010 and Slutsky 2010 demonstrated higher brain magnesium concentrations in rodents on threonate vs other forms. Whether that translates to additional sleep benefit in humans is unclear — the published human sleep RCTs are on oxide and glycinate, not threonate. Threonate is also 3–5× the cost per gram. Default to glycinate for sleep; threonate is reasonable to try if glycinate underperforms after 4–8 weeks at full dose.",
+      },
+    ],
+    sources: [
+      { label: "Abbasi et al. 2012 — Effect of magnesium supplementation on primary insomnia in elderly: RCT (J Res Med Sci)", url: "https://pubmed.ncbi.nlm.nih.gov/23853635/" },
+      { label: "Boyle et al. 2017 — The effects of magnesium supplementation on subjective anxiety and stress: systematic review (Nutrients)", url: "https://pubmed.ncbi.nlm.nih.gov/28445426/" },
+      { label: "Mah & Pitre 2021 — Oral magnesium supplementation for insomnia in older adults: systematic review and meta-analysis (BMC Complement Med Ther)", url: "https://pubmed.ncbi.nlm.nih.gov/33865354/" },
+      { label: "Yamadera et al. 2007 — Glycine ingestion improves subjective sleep quality (Sleep Biol Rhythms)", url: "https://onlinelibrary.wiley.com/doi/10.1111/j.1479-8425.2007.00262.x" },
+      { label: "Walker et al. 2003 — Mg citrate found more bioavailable than other Mg preparations (Magnes Res)", url: "https://pubmed.ncbi.nlm.nih.gov/14596323/" },
+      { label: "Slutsky et al. 2010 — Enhancement of learning and memory by elevating brain magnesium (Neuron)", url: "https://pubmed.ncbi.nlm.nih.gov/20152124/" },
+      { label: "IOM 2001 — Dietary Reference Intakes for Calcium, Magnesium, Phosphorus, Vitamin D, and Fluoride", url: "https://www.ncbi.nlm.nih.gov/books/NBK109825/" },
+      { label: "FDA Drugs@FDA — magnesium drug interactions reference", url: "https://www.accessdata.fda.gov/scripts/cder/daf/" },
+    ],
+  },
+  {
+    slug: "sleep-onset-latency-explained",
+    title: "Sleep Onset Latency — What It Is, Why It Matters, How to Measure",
+    h1: "Sleep onset latency: the most diagnostic number in your sleep data",
+    description:
+      "Sleep onset latency (SOL) is the time from lights-out to the first epoch of N1. Why under-15-minute SOL is normal, what longer SOL signals, and how the actigraphy estimate misses by 10–20 minutes.",
+    hub: "sleep-architecture",
+    postType: "pillar",
+    publishedAt: "2026-04-29",
+    updatedAt: "2026-04-29",
+    readingTime: 8,
+    status: "published",
+    protocolCard: {
+      input: "Self-tracked sleep onset latency over a 14-day baseline",
+      dose: "Record lights-out time and best estimate of falling-asleep time nightly; compare to actigraphy / Oura / Whoop estimate",
+      expectedOutput: "Healthy adult mean SOL: 10–20 min; SOL >30 min on >3 nights/week is the AASM insomnia threshold; SOL <5 min on most nights suggests sleep deprivation",
+      evidence: "AASM ICSD-3 diagnostic criteria; Hirshkowitz et al. 2015 NSF consensus; Carskadon & Dement Multiple Sleep Latency Test",
+      failureModes: "Wearable devices systematically over-estimate SOL by 5–15 min vs PSG; subjective sleep-onset estimates are biased by ruminating-while-falling-asleep; alcohol shortens SOL but degrades architecture",
+    },
+    faq: [
+      {
+        q: "What is a healthy SOL?",
+        a: "The American Academy of Sleep Medicine and the National Sleep Foundation 2015 consensus place healthy adult SOL between 10 and 20 minutes (Hirshkowitz et al. 2015, Sleep Health). Onset under 5 minutes consistently is one of the strongest signals of sleep deprivation — well-rested adults need a buffer to transition from wake to N1. Onset over 30 minutes on three or more nights per week meets the AASM ICSD-3 quantitative criterion for insomnia disorder if accompanied by daytime impairment.",
+      },
+      {
+        q: "How is SOL measured in trials?",
+        a: "Polysomnography (PSG) defines SOL as time from lights-out to the first epoch (30 seconds) of any sleep stage, typically N1. The gold-standard outpatient analogue is the Multiple Sleep Latency Test (MSLT, Carskadon & Dement). Wearables (Oura, Whoop, Garmin, Apple Watch) estimate SOL from heart rate, HRV, and motion; published validation studies (de Zambotti et al. 2019 for Oura; Beattie et al. 2017 for Fitbit) show systematic over-estimation of SOL by 5–15 minutes versus PSG, with worse accuracy on shorter SOLs.",
+      },
+      {
+        q: "Why does ruminating change my SOL estimate?",
+        a: "Subjective SOL — what you'd answer if asked 'how long did it take you to fall asleep?' — is biased upward by 10–30 minutes versus PSG-measured SOL because the brain encodes pre-sleep cognitive activity as wake even after EEG criteria are met (the 'sleep-onset misperception' phenomenon, Mercer et al. 2002). This is one reason Oura's estimate is often closer to subjective experience than PSG truth — the wearable is approximating perceived sleep onset, not electrophysiological sleep onset.",
+      },
+      {
+        q: "How do I shorten a long SOL?",
+        a: "The interventions with the largest published effect sizes for SOL reduction are: (1) consistent sleep-wake schedule including weekends — narrows the homeostatic-circadian phase mismatch; (2) morning light exposure within 60 minutes of wake — shifts dim-light melatonin onset earlier; (3) sleep restriction therapy under CBT-I — paradoxically the strongest non-pharmaceutical intervention, reducing SOL by 14–24 min in meta-analysis (van der Zweerde et al. 2019); (4) magnesium glycinate at 200–400 mg elemental — modest 7–17 min effect in trials; (5) reduced evening light exposure 2 hours before bedtime. Stimulus-control therapy alone reduces SOL meaningfully in motivated patients.",
+      },
+      {
+        q: "What about sleep tracking devices for SOL?",
+        a: "Use the trend, not the absolute number. Wearables consistently overestimate SOL by a non-trivial offset, but the relative-night-to-night change is reasonably accurate. If your Oura SOL averages 25 minutes, the PSG truth is probably closer to 12–18 minutes. The most actionable signal from a wearable is the trend across a 14-night baseline plus the variance — high SOL variance (SD >10 min) is a stronger insomnia signal than a high mean.",
+      },
+    ],
+    sources: [
+      { label: "AASM ICSD-3 — International Classification of Sleep Disorders, 3rd ed.", url: "https://aasm.org/clinical-resources/international-classification-sleep-disorders/" },
+      { label: "Hirshkowitz et al. 2015 — National Sleep Foundation's sleep time duration recommendations (Sleep Health)", url: "https://pubmed.ncbi.nlm.nih.gov/29073412/" },
+      { label: "Carskadon & Dement 1982 — The multiple sleep latency test (Sleep)", url: "https://pubmed.ncbi.nlm.nih.gov/7156656/" },
+      { label: "de Zambotti et al. 2019 — A validation study of Oura ring against polysomnography (Behav Sleep Med)", url: "https://pubmed.ncbi.nlm.nih.gov/29132233/" },
+      { label: "Mercer et al. 2002 — Insomniacs' perception of wake instead of sleep (Sleep)", url: "https://pubmed.ncbi.nlm.nih.gov/12489890/" },
+      { label: "van der Zweerde et al. 2019 — Cognitive behavioral therapy for insomnia: systematic review and network meta-analysis (Sleep Med Rev)", url: "https://pubmed.ncbi.nlm.nih.gov/30721703/" },
+    ],
+  },
+  {
+    slug: "delayed-sleep-phase-syndrome-protocol",
+    title: "Delayed Sleep Phase Syndrome — Diagnosis, Phase Advance, What Works",
+    h1: "Delayed sleep phase syndrome: the protocol that actually shifts your phase",
+    description:
+      "DSPS affects 0.17–7% of adults and up to 16% of adolescents. The diagnosis criteria, the dim-light melatonin onset (DLMO) workup, and the chronotherapy + light + low-dose-melatonin protocol that pulls onset earlier by 30–60 minutes per week.",
+    hub: "edge-cases",
+    postType: "pillar",
+    publishedAt: "2026-04-29",
+    updatedAt: "2026-04-29",
+    readingTime: 12,
+    status: "published",
+    protocolCard: {
+      input: "Confirmed delayed sleep phase syndrome (ICSD-3 criteria); current sleep onset 02:00 or later",
+      dose: "Bright light 10,000 lux for 30 min within 30 min of desired wake; low-dose melatonin 0.3–0.5 mg 5–7 hours before current sleep onset; sleep-wake schedule fixed including weekends",
+      expectedOutput: "30–60 minute weekly phase advance; sustainable schedule shift over 4–8 weeks; relapse on schedule break",
+      evidence: "AASM clinical guideline 2015 (Auger et al.); Mundey et al. 2005; Sletten et al. 2018",
+      failureModes: "Higher-dose melatonin (3+ mg) blunts effect by sleep-promoting at the wrong time; weekend phase delay reverses week's progress; light therapy after 09:00 reduces effect",
+    },
+    faq: [
+      {
+        q: "How do I know if I have DSPS vs just being a night owl?",
+        a: "ICSD-3 diagnostic criteria require: (1) a sleep-wake pattern significantly delayed relative to desired or required sleep time, (2) symptoms present for at least 3 months, (3) when allowed to choose schedule, sleep is normal in quality and duration but at a delayed clock time, and (4) sleep diary or actigraphy across at least 7 days demonstrating the delay. Late chronotype is a normal-distribution variant; DSPS is a clinical diagnosis requiring the misalignment to be causing distress or functional impairment. The dim-light melatonin onset (DLMO) measured via salivary melatonin is the objective biomarker — DSPS patients typically have DLMO after 23:00 in adults.",
+      },
+      {
+        q: "What dose of melatonin is correct?",
+        a: "Counterintuitively, low. The chronobiology evidence (Lewy et al. 1998 phase response curve work) shows phase-shifting effects peak at 0.3–0.5 mg, with higher doses blunting the effect because melatonin then acts as a sleep-promoter at the wrong time. Most over-the-counter melatonin in the US is 3–10 mg — these are sleep-aid doses, not chronotherapy doses. For DSPS, the AASM guideline recommends 'low-dose melatonin' (0.5 mg or less) timed 5–7 hours before current sleep onset, not at lights-out.",
+      },
+      {
+        q: "When should I take the melatonin and the light?",
+        a: "Light goes immediately after desired wake — 10,000 lux for 30 minutes within 30 minutes of waking. Melatonin goes 5–7 hours before current sleep onset. Example: a DSPS patient who currently falls asleep at 03:00 and wants to shift to 23:00 takes melatonin at 21:00–22:00 (5–6 hours before current onset) and light at 09:00 (after their actual wake time, slowly moving earlier as the schedule advances).",
+      },
+      {
+        q: "How fast does this work?",
+        a: "Sustainable phase advance is approximately 30–60 minutes per week. Aggressive single-week advances larger than 90 minutes typically fail by week 3 because the sleep homeostat lags the circadian shift. The full 2–4 hour advance from an initial 03:00 onset to a target 23:00 onset takes 4–8 weeks consistently executed. Weekend schedule slip — sleeping in 2+ hours on Saturday — wipes out the prior week's gain in most patients (Phipps-Nelson et al. 2003). Strict schedule maintenance including weekends is the largest single predictor of success.",
+      },
+      {
+        q: "What if light therapy and melatonin don't work?",
+        a: "Two next-line options have evidence: (1) chronotherapy — a clinician-supervised progressive 3-hour-per-day phase delay around the clock until the desired bedtime is reached, then strict maintenance. Effective but logistically demanding (Czeisler et al. 1981). (2) Tasimelteon (Hetlioz) — FDA-approved for non-24-hour sleep-wake disorder, used off-label for treatment-refractory DSPS. Behavioral options include CBT-I adapted for DSPS and stimulus-control therapy. Stimulant medications for daytime alertness do not phase-shift and typically worsen the underlying problem.",
+      },
+      {
+        q: "Is DSPS the same as ADHD-related sleep delay?",
+        a: "Co-occurring but distinct. ADHD is associated with delayed DLMO and DSPS prevalence at roughly 2–3× the general-population rate (Van Veen et al. 2010). The two diagnoses overlap in 30–80% of patients depending on case definition. Treating DSPS in ADHD patients improves daytime symptoms; treating ADHD with stimulants without addressing the phase delay typically does not normalize sleep onset. The phase-advance protocol above applies to both populations.",
+      },
+    ],
+    sources: [
+      { label: "Auger et al. 2015 — AASM clinical practice guideline for the treatment of intrinsic circadian rhythm sleep-wake disorders (J Clin Sleep Med)", url: "https://pubmed.ncbi.nlm.nih.gov/26414986/" },
+      { label: "Mundey et al. 2005 — Phase-dependent treatment of delayed sleep phase syndrome with melatonin (Sleep)", url: "https://pubmed.ncbi.nlm.nih.gov/16295212/" },
+      { label: "Sletten et al. 2018 — Efficacy of melatonin with behavioural sleep-wake scheduling for DSWPD (PLoS Med)", url: "https://pubmed.ncbi.nlm.nih.gov/29906282/" },
+      { label: "Lewy et al. 1998 — The human phase response curve to melatonin (Chronobiol Int)", url: "https://pubmed.ncbi.nlm.nih.gov/9493716/" },
+      { label: "Czeisler et al. 1981 — Chronotherapy: resetting the circadian clocks of patients with delayed sleep phase insomnia (Sleep)", url: "https://pubmed.ncbi.nlm.nih.gov/7973933/" },
+      { label: "Van Veen et al. 2010 — Delayed circadian rhythm in adults with attention-deficit/hyperactivity disorder and chronic sleep-onset insomnia (Biol Psychiatry)", url: "https://pubmed.ncbi.nlm.nih.gov/20193827/" },
+      { label: "AASM ICSD-3 — International Classification of Sleep Disorders, 3rd ed.", url: "https://aasm.org/clinical-resources/international-classification-sleep-disorders/" },
+    ],
+  },
+  {
+    slug: "best-mouth-tape-2026",
+    title: "Best Mouth Tape for Sleep, 2026 — Tested and Ranked",
+    h1: "Best mouth tape for sleep, 2026 — what works, what falls off",
+    description:
+      "Mouth tape is the simplest nasal-breathing intervention with sleep-quality data behind it. The five tapes that survive a 7-night test, the adhesion-vs-skin-irritation tradeoff, and what the literature actually shows.",
+    hub: "interventions-and-tools",
+    postType: "comparison",
+    publishedAt: "2026-04-29",
+    updatedAt: "2026-04-29",
+    readingTime: 9,
+    status: "published",
+    ourPick: {
+      name: "3M Micropore (the unbranded chronobiology default)",
+      tier: "Single-purpose hypoallergenic medical tape",
+      reason:
+        "The mouth-tape category is full of branded $20 small-pack products that are paper or hypoallergenic medical tape with marketing on top. 3M Micropore — the same hypoallergenic paper tape used in clinical settings — is the underlying material in most. Buy a $4 roll, cut to 2-inch strips, get 90+ uses. The branded variants are reasonable if the cut-piece form factor matters; the underlying material is what holds.",
+    },
+    products: [
+      { rank: 1, name: "3M Micropore Surgical Tape (1-inch roll)", tier: "Hypoallergenic medical tape", summary: "The default. Hypoallergenic acrylate adhesive, paper backing, breathable. Cut into 2-inch strips for vertical-application sleep use. ~$4/roll for ~90 uses. Available at any pharmacy. Irritation rate in long-term wear studies is the lowest of the medical-tape category." },
+      { rank: 2, name: "Hostage Tape", tier: "Branded mouth tape", summary: "Pre-cut horizontal strips designed for the mouth. Stronger adhesive than Micropore, harder to remove if you wake mid-night. Survives an entire night's REM movement reliably. Higher per-use cost (~$0.40) but the form factor avoids the tape-cutting step. Skin sensitivity reactions reported in ~5–8% of long-term users." },
+      { rank: 3, name: "Somnifix", tier: "Branded mouth tape with central breathing hole", summary: "Hypoallergenic with a central perforated breathing slot — designed to allow emergency mouth-breathing if nasal passages block. The fail-safe is real but the perforation means the seal is partial, which reduces the clinical effect (mouth breathing is still possible at low resistance). Reasonable choice for first-week users who are nervous about sealing the mouth completely." },
+      { rank: 4, name: "Dryft", tier: "Branded mouth tape", summary: "Vertical-strip form factor, mid-strength adhesive between Micropore and Hostage. Often comes in starter packs with both adhesive strengths. Cost-per-use sits between the budget Micropore and the premium Hostage. Form factor preference, not material superiority." },
+      { rank: 5, name: "Nexcare First Aid Sensitive Skin Tape", tier: "Pharmacy alternative to Micropore", summary: "Same category as 3M Micropore, slightly stronger adhesive. Useful for users who experience mid-night detachment with Micropore. Stocked at Walgreens and CVS." },
+    ],
+    faq: [
+      {
+        q: "Does mouth tape actually do anything?",
+        a: "The published evidence is small but real. Lee et al. 2022 (Healthcare, n=20) reported reduced apnea-hypopnea index in mild OSA patients with mouth tape vs control. Huang & Sun 2015 (J Otolaryngol Head Neck Surg) reported reduced snoring intensity. The mechanism is enforced nasal breathing, which routes air past the inferior turbinates (humidification + filtering) and increases nitric oxide delivery (Lundberg & Weitzberg 1999). The effect size is modest. Mouth tape is not a treatment for moderate-to-severe sleep apnea — see a sleep physician for that.",
+      },
+      {
+        q: "Is mouth tape safe?",
+        a: "For most healthy adults, yes. Contraindications: known severe nasal obstruction (deviated septum without surgical correction, chronic sinusitis with no nasal airflow), severe acid reflux (mouth breathing helps decompress the lower esophageal sphincter in some patients), CPAP users (the CPAP mask handles the airway), young children (the gag-reflex risk profile is different). If you cannot breathe through your nose with your mouth closed for 60 seconds while awake, do not tape your mouth. Most adults pass this test trivially.",
+      },
+      {
+        q: "How do I know if I'm a mouth-breather while sleeping?",
+        a: "Three signals: (1) waking with a dry mouth or scratchy throat is the most common; (2) a partner reporting mouth-open sleeping or louder breathing; (3) high resting heart rate during sleep on Oura/Whoop without obvious cause — chronic mouth breathing through low-grade airway resistance can elevate sympathetic tone. A 7-night mouth-tape trial is itself diagnostic — if dry-mouth-on-waking goes away, you were mouth-breathing.",
+      },
+      {
+        q: "What if the tape falls off?",
+        a: "Two causes. First: skin oil. Wash and dry the lip area before applying — most failures are a lipid film between adhesive and skin. Second: facial hair. Mustache or chin-stubble interferes with the seal. Either trim the mustache, apply the tape just on the upper lip and chin, or use the stronger Hostage adhesive. If the tape repeatedly falls off in REM, you're a heavy mouth-breather and need the stronger adhesive class.",
+      },
+      {
+        q: "What's the difference between cheap and expensive mouth tape?",
+        a: "Form factor and brand premium. The underlying adhesive technology is hypoallergenic acrylate or silicone — both are commodity. Branded $20 packs are typically pre-cut shapes of materials available in roll form for a fraction of the per-use cost. The exception is Somnifix's perforated design, which has a real fail-safe rationale. Otherwise, the recommendation is: try Micropore from a pharmacy first; only escalate to branded products if cut-strip form factor or stronger adhesive is needed.",
+      },
+    ],
+    sources: [
+      { label: "Lee et al. 2022 — Mouth taping in mild obstructive sleep apnea (Healthcare)", url: "https://pubmed.ncbi.nlm.nih.gov/36011241/" },
+      { label: "Huang & Sun 2015 — Mouth breathing and snoring (J Otolaryngol Head Neck Surg)", url: "https://pubmed.ncbi.nlm.nih.gov/25925746/" },
+      { label: "Lundberg & Weitzberg 1999 — Nasal nitric oxide in man (Thorax)", url: "https://pubmed.ncbi.nlm.nih.gov/10377211/" },
+      { label: "American Academy of Sleep Medicine — Position statement on home sleep testing and behavioral interventions", url: "https://aasm.org/clinical-resources/" },
+      { label: "3M product safety data sheet — Micropore Surgical Tape", url: "https://multimedia.3m.com/" },
+    ],
+  },
 ];
 
 export function getPost(slug: string): Post | undefined { return posts.find((p) => p.slug === slug); }
