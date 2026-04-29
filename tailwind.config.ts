@@ -33,9 +33,24 @@ const config: Config = {
         stone: "#6B7A8A",
       },
       fontFamily: {
-        serif: ['"IBM Plex Serif"', '"Söhne Breit"', "Georgia", "serif"],
-        sans: ["Inter", "system-ui", "sans-serif"],
-        mono: ['"IBM Plex Mono"', "ui-monospace", "monospace"],
+        serif: [
+          "var(--font-ibm-serif)",
+          '"IBM Plex Serif"',
+          "Georgia",
+          "serif",
+        ],
+        sans: [
+          "var(--font-ibm-sans)",
+          '"IBM Plex Sans"',
+          "system-ui",
+          "sans-serif",
+        ],
+        mono: [
+          "var(--font-ibm-mono)",
+          '"IBM Plex Mono"',
+          "ui-monospace",
+          "monospace",
+        ],
       },
       maxWidth: {
         prose: "68ch",

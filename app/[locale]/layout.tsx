@@ -2,7 +2,36 @@ import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
+import { IBM_Plex_Sans, IBM_Plex_Mono, IBM_Plex_Serif } from "next/font/google";
 import "../globals.css";
+
+/**
+ * Per the 2026-04-29 audit-fix sweep: IBM Plex is self-hosted via
+ * `next/font/google` so the live site no longer issues runtime requests
+ * to `fonts.googleapis.com` / `fonts.gstatic.com`. This eliminates a
+ * GDPR exposure (Google receives reader IPs) and improves LCP since
+ * fonts are inlined and statically optimised.
+ */
+const ibmSans = IBM_Plex_Sans({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-ibm-sans",
+});
+
+const ibmMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  variable: "--font-ibm-mono",
+});
+
+const ibmSerif = IBM_Plex_Serif({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-ibm-serif",
+});
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
@@ -49,8 +78,14 @@ export async function generateMetadata({
   const tagline = siteTagline(locale);
   const description = siteDescription(locale);
 
+  // 2026-04-29 lock: hreflang alternates trimmed to en/de/fr/x-default.
+  // Other locale routes still resolve (no URL breakage), but only the
+  // EN/DE/FR translations are surfaced as hreflang while the chronobiology
+  // term-base in cs/no/sv/ro/pl/pt/it doesn't justify the translation
+  // cost. Re-evaluate at Gate C.
+  const HREFLANG_LOCALES: readonly Locale[] = ["en", "de", "fr"];
   const languages: Record<string, string> = {};
-  for (const l of routing.locales) {
+  for (const l of HREFLANG_LOCALES) {
     languages[l] = localeUrl(l, "/");
   }
   languages["x-default"] = localeUrl("en", "/");
@@ -70,7 +105,7 @@ export async function generateMetadata({
       type: "website",
       siteName: SITE.name,
       locale: OG_LOCALE[locale],
-      alternateLocale: locales.filter((l) => l !== locale).map((l) => OG_LOCALE[l]),
+      alternateLocale: HREFLANG_LOCALES.filter((l) => l !== locale).map((l) => OG_LOCALE[l]),
     },
     twitter: { card: "summary_large_image" },
     robots: robotsMeta(),
@@ -93,15 +128,10 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html
+      lang={locale}
+      className={`${ibmSans.variable} ${ibmMono.variable} ${ibmSerif.variable}`}
+    >
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <OrganizationJsonLd />
